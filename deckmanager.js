@@ -97,8 +97,6 @@ function manageCards() {
   }
 }
 
-
-
 function checkHover(x, y, w, h, mouseX, mouseY) {
   return ((mouseX > x && mouseX <= x + w) && (mouseY > y && mouseY <= y + h)) 
 }
