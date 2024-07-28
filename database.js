@@ -178,7 +178,7 @@ function pullCards(ingame) {
       break;
 
     case 1:
-      if (usedDeck < 69) {
+      if (usedDeck.length < 69) {
         for (let i = 0; i < cardIndexes.length; i++) {
   
           do {
@@ -223,8 +223,17 @@ function popCards() {
     usedDeck.push(usedCard);
   }
 
-  pullCards(1);
-  
+  currentSets = findSets(currentDeck, allSets);
+
+  if (currentSets.length > 0) {
+    startupFrames();
+    print("adjusted deck to 12!")
+  }
+  else {
+    pullCards(1);
+    print("pulled 3 more cards!")
+  }
+
   selectedSet = [];
 }
 
