@@ -82,6 +82,7 @@ function draw() {
 
 function keyPressed() {
   if (keyCode == ENTER) {
+    usedDeck = [];
     startupDeck();
     pullCards(0);
     startupFrames();
@@ -138,7 +139,13 @@ function drawMarker(x, y, fw, fh, size, state) {
 function drawInterface() {
   image(
     retryFrames,
-    width - retryFrames.width * 3 * 2,
-    retryFrames.height * 3 * 2
+    width - retryFrames.width * 2,
+    retryFrames.width,
+    14 * 4,
+    16 * 4,
+    14 * 0,
+    0,
+    14,
+    16
   )
 }
