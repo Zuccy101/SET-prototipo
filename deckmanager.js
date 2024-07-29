@@ -89,7 +89,7 @@ function manageCards() {
       if (result) {
         popCards();
       }
-      startupFrames();
+      setupFrames();
       selectedSet = [];
       setFound = false;
       timer = 0;

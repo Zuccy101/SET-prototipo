@@ -25,6 +25,7 @@ function draw() {
     drawFrame(frame);
   }
 
+
   drawInterface();
 
   manageCards();
@@ -83,9 +84,9 @@ function draw() {
 function keyPressed() {
   if (keyCode == ENTER) {
     usedDeck = [];
-    startupDeck();
+    setupDeck();
     pullCards(0);
-    startupFrames();
+    setupFrames();
   }
 }
 

@@ -5,6 +5,7 @@ let allFrames = [];
 let currentDeck = [];
 let currentSets = [];
 
+let sceneID = 0;
 let cardID = 0;
 let setID = 0;
 let margin = 2;
@@ -42,15 +43,29 @@ class FRAME {
   }
 }
 
+class BUTTON {
+  constructor(x, y, w, h, size, press, state, sceneID ) {
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
+    this.size = size;
+    this.press = press;
+    this.state = state;
+    this.sceneID = sceneID
+  }
+}
+
 function setup() {
 
   cnv = createCanvas(1024, 768);
   cnv.parent("canvasParent")
 
-  startupCards();
-  startupDeck();
+  setupButtons();
+  setupCards();
+  setupDeck();
   pullCards(0);
-  startupFrames();
+  setupFrames();
 
   console.log("All sets length: " + allSets.length);
   
@@ -116,7 +131,7 @@ function recognizePattern(a, b, c) {
   return (a === b && b === c) || (a !== b && b !== c && a !== c);
 }
 
-function startupCards() {
+function setupCards() {
 
   deck = [];
 
@@ -135,7 +150,7 @@ function startupCards() {
   allSets = generateSets(deck);
 }
 
-function startupDeck() {
+function setupDeck() {
   
   currentDeck = [];
 
@@ -192,7 +207,6 @@ function pullCards(ingame) {
         currentSets = findSets(currentDeck, allSets);
         if (currentSets.length < 1) {
           pullCards(0);
-          
         }
       }
       else {
@@ -225,19 +239,20 @@ function popCards() {
 
   currentSets = findSets(currentDeck, allSets);
 
-  if (currentSets.length > 0) {
-    startupFrames();
-    print("adjusted deck to 12!")
-  }
-  else {
+  if (currentSets.length === 0 || currentDeck.length == 9) {
+    
     pullCards(1);
     print("pulled 3 more cards!")
+  }
+  else {
+    setupFrames();
+    print("adjusted deck to 12!")
   }
 
   selectedSet = [];
 }
 
-function startupFrames() {
+function setupFrames() {
 
   allFrames = [];
 
@@ -267,4 +282,10 @@ function startupFrames() {
 
     allFrames.push(newFrame);
   }
+}
+
+function setupButtons() {
+
+  let buttonID = []
+
 }
