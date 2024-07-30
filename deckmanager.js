@@ -4,7 +4,11 @@ let selectedSet = [];
 let cardIndexes = [];
 let timer = 0;
 
-function manageCards() {
+function manageGame() {
+
+  for (let frame of allFrames) {
+    drawFrame(frame);
+  }
 
   for (let i = 0; i < currentDeck.length; i++) {
     currFrame = allFrames[i];

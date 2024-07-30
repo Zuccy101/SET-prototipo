@@ -43,7 +43,7 @@ class FRAME {
   }
 }
 
-class BUTTON {
+class UI {
   constructor(x, y, w, h, size, press, state, sceneID ) {
     this.x = x;
     this.y = y;
@@ -61,7 +61,7 @@ function setup() {
   cnv = createCanvas(1024, 768);
   cnv.parent("canvasParent")
 
-  setupButtons();
+  //setupInterface();
   setupCards();
   setupDeck();
   pullCards(0);
@@ -284,8 +284,44 @@ function setupFrames() {
   }
 }
 
-function setupButtons() {
+function setupInterface() {
 
-  let buttonID = []
+  let play = new UI()
+  let config;
+  let trophies;
+  let back;
+  let next;
+  let apply;
+  let solo;
+  let multi;
+  let settings;
+  let music;
+  let sound;
+  let uisize;
+  let resolution;
+  let theme;
+  let stars;
+  let collection;
+  let players;
+  let controls;
+  let gamemode;
+  let local;
+  let online;
+  let classic;
+  let arcade;
+  let speedrun;
+  let timetrial;
+  let party;
+  let versus;
+  let limits;
+  let sets;
+  let time;
+  let host;
+  let join;
+  let start;
+  let pause;
+  let set;
+  let resume;
+  let exit;
 
 }

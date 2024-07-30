@@ -7,6 +7,7 @@ let w = 49;
 let h = 64;
 
 function preload() {
+  alphabetSpriteSheet = loadImage("assets/fontspritesheet.png");
   frameSpriteSheet = loadImage("assets/cardframes.png");
   cardSpriteSheet = loadImage("assets/spritesheet.png");
   frameMarker = loadImage("assets/framemarker.png")
@@ -21,15 +22,27 @@ function draw() {
   drawBackground();
   noSmooth();
 
-  for (let frame of allFrames) {
-    drawFrame(frame);
+  //drawInterface();
+  if (sceneID == 10) {
+    manageGame();
+    drawDebug();
+
   }
 
-
-  drawInterface();
-
-  manageCards();
   
+}
+
+function keyPressed() {
+  if (keyCode == ENTER) {
+    usedDeck = [];
+    setupDeck();
+    pullCards(0);
+    setupFrames();
+  }
+}
+
+function drawDebug() {
+
   fill(0);
   textAlign(LEFT);
   textSize(9);
@@ -78,15 +91,6 @@ function draw() {
       180,
       10 + 10 * i
     );
-  }
-}
-
-function keyPressed() {
-  if (keyCode == ENTER) {
-    usedDeck = [];
-    setupDeck();
-    pullCards(0);
-    setupFrames();
   }
 }
 
