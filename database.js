@@ -1,4 +1,5 @@
 let deck = [];
+let allUI = [];
 let allSets = [];
 let usedDeck = [];
 let allFrames = [];
@@ -43,16 +44,25 @@ class FRAME {
   }
 }
 
-class UI {
-  constructor(x, y, w, h, size, press, state, sceneID ) {
+class BOUNDARY {
+  constructor(x, y, w, h) {
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
+  }
+}
+
+class UI {
+  constructor(x, y, size, col, press, sceneID, string, interact) {
+    this.x = x;
+    this.y = y;
     this.size = size;
+    this.col = col;
     this.press = press;
-    this.state = state;
-    this.sceneID = sceneID
+    this.sceneID = sceneID;
+    this.string = string;
+    this.interact = interact;
   }
 }
 
@@ -61,7 +71,7 @@ function setup() {
   cnv = createCanvas(1024, 768);
   cnv.parent("canvasParent")
 
-  //setupInterface();
+  setupInterface();
   setupCards();
   setupDeck();
   pullCards(0);
@@ -260,7 +270,7 @@ function setupFrames() {
 
     let x = Math.floor(i / 3);
     let y = i % 3;
-    let size = 3;
+    let frameSize = 3;
     let startX;
     let startY = 90;
 
@@ -273,9 +283,9 @@ function setupFrames() {
     
 
     let newFrame = new FRAME(
-      startX + (w * size + margin * size) * x,
-      startY + (h * size + margin * size) * y,
-      size,
+      startX + (w * frameSize + margin * frameSize) * x,
+      startY + (h * frameSize + margin * frameSize) * y,
+      frameSize,
       0,
       0,
       currentDeck[i].cardID)
@@ -286,15 +296,19 @@ function setupFrames() {
 
 function setupInterface() {
 
-  let play = new UI()
-  let config;
-  let trophies;
-  let back;
-  let next;
-  let apply;
-  let solo;
-  let multi;
-  let settings;
+  let hSection = height / 8;
+
+  let title = new UI(width / 2, hSection * 1, 8, 0, 0, 0,  'SET' , 0);
+  let play = new UI(width / 2, height - hSection * 3, 4, 0, 0, 0, 'PLAY', 1);
+  let config = new UI(width / 2, height - hSection * 2, 4, 0, 0, 0, 'CONFIG', 2);
+  let trophies = new UI(width / 2, height - hSection * 1, 4, 0, 0, 0, 'TROPHIES', 3);
+
+  let solo = new UI(width / 2, height - hSection * 3, 4, 0, 0, 1, 'SOLO', 10);
+  let multi = new UI(width / 2, height - hSection * 2, 4, 0, 0, 1, 'MULTI', 10);
+  let settings = new UI(width / 2, height - hSection * 1, 4, 0, 0, 1, 'SETTINGS', 6);
+
+  allUI.push(title, play, config, trophies, solo, multi, settings);
+
   let music;
   let sound;
   let uisize;
@@ -323,5 +337,9 @@ function setupInterface() {
   let set;
   let resume;
   let exit;
+
+  let back;
+  let next;
+  let apply;
 
 }

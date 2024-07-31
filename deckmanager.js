@@ -15,14 +15,16 @@ function manageGame() {
 
     drawCard(currFrame.x, currFrame.y, currFrame.size, currFrame.press, currentDeck[i]);
     
-    if (checkHover(
+    let currBounds = new BOUNDARY(
       currFrame.x - margin * currFrame.size / 2,
       currFrame.y - margin * currFrame.size / 2,
       w * currFrame.size + margin * currFrame.size,
-      h * currFrame.size + margin * currFrame.size,
-      mouseX, mouseY)) {
+      h * currFrame.size + margin * currFrame.size
+    )
+
+    if (checkHover(currBounds)) {
       
-      drawMarker(currFrame.x, currFrame.y, 63, 80, currFrame.size, mouseIsPressed);
+      drawSelect(currFrame.x, currFrame.y, 63, 80, currFrame.size, mouseIsPressed);
       
       if (currFrame.press != 0 && !mouseIsPressed) {
         currFrame.press = 0;
@@ -101,6 +103,4 @@ function manageGame() {
   }
 }
 
-function checkHover(x, y, w, h, mouseX, mouseY) {
-  return ((mouseX > x && mouseX <= x + w) && (mouseY > y && mouseY <= y + h)) 
-}
+
