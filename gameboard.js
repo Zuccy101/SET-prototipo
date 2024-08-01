@@ -334,6 +334,12 @@ function interactManager() {
     case 12:
       sceneID = 12;
       break;
+    case 13:
+      sceneID = 13;
+      break;
+    case 14:
+      sceneID = 14;
+      break;
   }
 }
 

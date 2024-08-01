@@ -298,33 +298,47 @@ function setupInterface() {
 
   let hSection = height / 8;
 
-  let title = new UI(width / 2, hSection * 1, 8, 0, 0, 0,  'SET' , 0);
+  let title = new UI(width / 2, hSection * 1, 8, 0, 0, 0,  '_SET_' , 0);
   let play = new UI(width / 2, height - hSection * 3, 4, 0, 0, 0, 'PLAY', 1);
   let config = new UI(width / 2, height - hSection * 2, 4, 0, 0, 0, 'CONFIG', 2);
   let trophies = new UI(width / 2, height - hSection * 1, 4, 0, 0, 0, 'TROPHIES', 3);
 
-  let solo = new UI(width / 2, height - hSection * 3, 4, 0, 0, 1, 'SOLO', 10);
-  let multi = new UI(width / 2, height - hSection * 2, 4, 0, 0, 1, 'MULTI', 10);
+  allUI.push(title, play, config, trophies);
+
+  let solo = new UI(width / 2, height - hSection * 3, 4, 0, 0, 1, 'SOLO', 4);
+  let multi = new UI(width / 2, height - hSection * 2, 4, 0, 0, 1, 'MULTI', 4);
   let settings = new UI(width / 2, height - hSection * 1, 4, 0, 0, 1, 'SETTINGS', 6);
 
-  allUI.push(title, play, config, trophies, solo, multi, settings);
+  allUI.push(solo, multi, settings);
 
-  let music;
-  let sound;
-  let uisize;
-  let resolution;
-  let theme;
-  let stars;
-  let collection;
-  let players;
-  let controls;
-  let gamemode;
+  let theme = new UI(width / 2, height - hSection * 4, 4, 0, 0, 2, 'THEME', 7);
+  let music = new UI(width / 2, height - hSection * 3, 4, 0, 0, 2, 'MUSIC', 8);
+  let sound = new UI(width / 2, height - hSection * 2, 4, 0, 0, 2, 'SOUND', 9);
+  let uisize = new UI(width / 2, height - hSection * 1, 4, 0, 0, 2, 'UI SIZE', 11);
+
+  allUI.push(theme, music, sound, uisize);
+
+  let stars = new UI(width / 2, height - hSection * 2.5, 4, 0, 0, 3, 'STARS', 12);
+  let collection = new UI(width / 2, height - hSection * 1.5, 4, 0, 0, 3, 'COLLECTION', 13);
+
+  allUI.push(stars, collection);
+
+  let gamemode = new UI(width / 2, height - hSection * 3, 4, 0, 0, 4, 'GAMEMODE', 14);
+  
+  let classic = new UI(width / 2, height - hSection * 4, 4, 0, 0, 14, 'CLASSIC', 10);
+  let arcade = new UI(width / 2, height - hSection * 3, 4, 0, 0, 14, 'ARCADE', 10);
+  let speedrun = new UI(width / 2, height - hSection * 2, 4, 0, 0, 14, 'SPEEDRUN', 10);
+  let timetrial = new UI(width / 2, height - hSection * 1, 4, 0, 0, 14, 'TIME TRIAL', 10);
+
+  allUI.push(gamemode, classic, arcade, speedrun, timetrial);
+
+  let players = new UI(width / 2, height - hSection * 2.5, 4, 0, 0, 6, 'PLAYERS', 15);
+  let controls = new UI(width / 2, height - hSection * 1.5, 4, 0, 0, 6, 'CONTROLS', 16);
+
+  allUI.push(gamemode, players, controls);
+
   let local;
   let online;
-  let classic;
-  let arcade;
-  let speedrun;
-  let timetrial;
   let party;
   let versus;
   let limits;
