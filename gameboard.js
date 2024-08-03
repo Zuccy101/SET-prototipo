@@ -1,7 +1,9 @@
-let cardSpriteSheet;
-let frameSpriteSheet;
+let tile;
 let frameMarker;
 let retryFrames;
+let spriteSelect;
+let cardSpriteSheet;
+let frameSpriteSheet;
 let alphabetSpriteSheet;
 let charData = {
   A: { x: 0, w: 10 },
@@ -71,8 +73,9 @@ function preload() {
   alphabetSpriteSheet = loadImage("assets/fontspritesheet.png");
   frameSpriteSheet = loadImage("assets/cardframes.png");
   cardSpriteSheet = loadImage("assets/spritesheet.png");
-  frameMarker = loadImage("assets/framemarker.png")
-  retryFrames = loadImage("assets/retryframes.png")
+  spriteSelect = loadImage("assets/spriteselect.png");
+  frameMarker = loadImage("assets/framemarker.png");
+  retryFrames = loadImage("assets/retryframes.png");
   tile = loadImage("assets/bgtile.png");
 }
 
@@ -186,82 +189,12 @@ function drawCard(x, y, size, press, card) {
   )
 }
 
-function drawSelect(x, y, fw, fh, size, state) {
-  image(
-    frameMarker,
-    x - 21,
-    y - 24,
-    fw * size,
-    fh * size,
-    fw * state,
-    0,
-    fw,
-    fh
-  )
-}
-
-function manageInterface() {
-  //print(clickID)
-  for (let i = 0; i < allUI.length; i++) {
-    if (allUI[i].sceneID == sceneID) {
-      let h = 14;
-      let margin = 1 * allUI[i].size;
-      let strw = getStringCenter(allUI[i].string, allUI[i].size, margin);
-
-      drawUI(
-        allUI[i].x, 
-        allUI[i].y, 
-        strw,
-        h,
-        margin,
-        allUI[i].size, 
-        allUI[i].col, 
-        allUI[i].press, 
-        allUI[i].string
-      );
-
-      let currBounds = new BOUNDARY(
-        allUI[i].x - (strw / 2),
-        allUI[i].y - (h * allUI[i].size / 2),
-        strw,
-        h * allUI[i].size
-      )
-
-
-      if (checkHover(currBounds)) {
-          
-          if (mouseIsPressed) {
-            clickID = allUI[i].interact;
-            hoveredBounds = currBounds;
-            allUI[i].press = 1;
-          if (!clicked) {
-            clicked = true;
-          }
-        }
-        else {
-          if (allUI[i].press != 0) {
-            allUI[i].press = 0;
-          }
-        }
-      }
-      else {
-        
-        if (clickID != 0 && clicked == false) {
-          clickID = 0;
-
-        }
-        if (allUI[i].press != 0) {
-          allUI[i].press = 0;
-        }
-      }
-    }
-  }
-}
-
 function drawUI(x, y, strw, h, margin, size, col, press, string) {
-   
+  
+  
   let xPos = x - strw / 2;
-  let yPos = (col * h) + (press * h * 5);
+  let yPos = (y - h * size / 2) + (press * size)
+  let yOffset = (col * h) + (press * h * 5);
   
   for (let i = 0; i < string.length; i++) {
     let char = string[i];
@@ -270,20 +203,50 @@ function drawUI(x, y, strw, h, margin, size, col, press, string) {
       image(
         alphabetSpriteSheet, 
         xPos, 
-        (y - h * size / 2) + (press * size), 
+        yPos, 
         w * size, 
         h * size, 
         sx, 
-        yPos, 
+        yOffset, 
         w, 
         h
       );
-
+      
       xPos += w * size + margin;
     }
   }
 }
 
+function drawSelect(bounds, size, press) {
+
+  let selectSize = size;
+  let w = 11;
+  let h = 12;
+
+  for (let i = 0; i < 2; i++) {
+    for (let j = 0; j < 2; j++) {
+
+      image(
+        spriteSelect,
+        bounds.x - (w * selectSize) + (i * (bounds.w + spriteSelect.width * selectSize / 4)),
+        bounds.y - (h * selectSize) + (j * (bounds.h + spriteSelect.height * selectSize / 2)),
+        w * selectSize,
+        h * selectSize,
+        i * w + (spriteSelect.width / 2 * press),
+        j * h,
+        w,
+        h
+      )
+
+      /*strokeWeight(5)
+      rect(bounds.x, bounds.y, bounds.w, bounds.h)
+      point(
+        bounds.x - (w * selectSize) + (i * (bounds.w + spriteSelect.width * selectSize / 4)),
+        bounds.y - (h * selectSize) + (j * (bounds.h + spriteSelect.height * selectSize / 2)),
+      )*/
+    }
+  }
+}
 function mouseReleased() {
   if (clicked) {
     if (checkHover(hoveredBounds)) {
@@ -293,61 +256,14 @@ function mouseReleased() {
   }
 }
 
-function interactManager() {
-  switch(clickID) {
-    case 0:
-      return
-      break;
-    case 1:
-      sceneID = 1;
-      break;
-    case 2:
-      sceneID = 2;
-      break;
-    case 3:
-      sceneID = 3;
-      break;
-    case 4:
-      sceneID = 4;
-      break;
-    case 5:
-      sceneID = 5;
-      break;
-    case 6:
-      sceneID = 6;
-      break;
-    case 7:
-      sceneID = 7;
-      break;
-    case 8:
-      sceneID = 8;
-      break;
-    case 9:
-      sceneID = 9;
-      break;
-    case 10:
-      sceneID = 10;
-      break;
-    case 11:
-      sceneID = 11;
-      break;
-    case 12:
-      sceneID = 12;
-      break;
-    case 13:
-      sceneID = 13;
-      break;
-    case 14:
-      sceneID = 14;
-      break;
-  }
-}
-
 function getStringCenter(str, size, margin) {
   let width = 0;
   for (let i = 0; i < str.length; i++) {
     let char = str[i];
     if (charData[char]) {
+      if (i == str.length -1) {
+        margin = 0;
+      }
       width += charData[char].w * size + margin;
     }
   }

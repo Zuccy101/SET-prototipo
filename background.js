@@ -1,4 +1,3 @@
-let tile;
 let tilesize = 8;
 let bgScrollX;
 let bgScrollY;

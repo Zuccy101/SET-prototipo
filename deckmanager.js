@@ -24,8 +24,8 @@ function manageGame() {
 
     if (checkHover(currBounds)) {
       
-      drawSelect(currFrame.x, currFrame.y, 63, 80, currFrame.size, mouseIsPressed);
-      
+      drawSelect(currBounds, currFrame.size, currFrame.press);
+
       if (currFrame.press != 0 && !mouseIsPressed) {
         currFrame.press = 0;
       }
@@ -36,7 +36,7 @@ function manageGame() {
         }
         
         if (mouseIsPressed) {
-          currFrame.press = 3;
+          currFrame.press = 1;
           currFrame.state = 2;
 
           if (setFound){
@@ -103,4 +103,112 @@ function manageGame() {
   }
 }
 
+function manageInterface() {
 
+  for (let i = 0; i < allUI.length; i++) {
+    if (allUI[i].sceneID == sceneID) {
+      let h = 14;
+      let uiMargin = 1 * allUI[i].size;
+      let strw = getStringCenter(allUI[i].string, allUI[i].size, uiMargin);
+
+      drawUI(
+        allUI[i].x, 
+        allUI[i].y, 
+        strw,
+        h,
+        uiMargin,
+        allUI[i].size, 
+        allUI[i].col, 
+        allUI[i].press, 
+        allUI[i].string
+      );
+
+      let currBounds = new BOUNDARY(
+        allUI[i].x - (strw / 2),
+        allUI[i].y - (h * allUI[i].size / 2),
+        strw,
+        h * allUI[i].size
+      )
+
+
+      if (checkHover(currBounds)) {
+          
+        drawSelect(currBounds, allUI[i].size, allUI[i].press);
+
+          if (mouseIsPressed) {
+            clickID = allUI[i].interact;
+            hoveredBounds = currBounds;
+            allUI[i].press = 1;
+          if (!clicked) {
+            clicked = true;
+          }
+        }
+        else {
+          if (allUI[i].press != 0) {
+            allUI[i].press = 0;
+          }
+        }
+      }
+      else {
+        
+        if (clickID != 0 && clicked == false) {
+          clickID = 0;
+
+        }
+        if (allUI[i].press != 0) {
+          allUI[i].press = 0;
+        }
+      }
+    }
+  }
+}
+
+function interactManager() {
+  switch(clickID) {
+    case 0:
+      return
+      break;
+    case 1:
+      sceneID = 1;
+      break;
+    case 2:
+      sceneID = 2;
+      break;
+    case 3:
+      sceneID = 3;
+      break;
+    case 4:
+      sceneID = 4;
+      break;
+    case 5:
+      sceneID = 5;
+      break;
+    case 6:
+      sceneID = 6;
+      break;
+    case 7:
+      sceneID = 7;
+      break;
+    case 8:
+      sceneID = 8;
+      break;
+    case 9:
+      sceneID = 9;
+      break;
+    case 10:
+      sceneID = 10;
+      break;
+    case 11:
+      sceneID = 11;
+      break;
+    case 12:
+      sceneID = 12;
+      break;
+    case 13:
+      sceneID = 13;
+      break;
+    case 14:
+      sceneID = 14;
+      break;
+  }
+}

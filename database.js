@@ -298,10 +298,10 @@ function setupInterface() {
 
   let hSection = height / 8;
 
-  let title = new UI(width / 2, hSection * 1, 8, 0, 0, 0,  '_SET_' , 0);
-  let play = new UI(width / 2, height - hSection * 3, 4, 0, 0, 0, 'PLAY', 1);
-  let config = new UI(width / 2, height - hSection * 2, 4, 0, 0, 0, 'CONFIG', 2);
-  let trophies = new UI(width / 2, height - hSection * 1, 4, 0, 0, 0, 'TROPHIES', 3);
+  let title = new UI(width / 2, hSection * 1, 8, 1, 0, 0,  'SET' , 0);
+  let play = new UI(width / 2, height - hSection * 3, 4, 1, 0, 0, 'PLAY', 1);
+  let config = new UI(width / 2, height - hSection * 2, 4, 1, 0, 0, 'CONFIG', 2);
+  let trophies = new UI(width / 2, height - hSection * 1, 4, 1, 0, 0, 'TROPHIES', 3);
 
   allUI.push(title, play, config, trophies);
 
