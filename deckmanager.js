@@ -138,13 +138,15 @@ function manageInterface() {
           if (mouseIsPressed) {
             clickID = allUI[i].interact;
             hoveredBounds = currBounds;
-            allUI[i].press = 1;
+            if (allUI[i].press == 0) {
+              allUI[i].press = 1;
+            }
           if (!clicked) {
             clicked = true;
           }
         }
         else {
-          if (allUI[i].press != 0) {
+          if (allUI[i].press != 0 && allUI[i].press == 1) {
             allUI[i].press = 0;
           }
         }
