@@ -65,8 +65,8 @@ let charData = {
 
 let w = 49;
 let h = 64;
-let clicked = false;
-let clickID = 0;
+let clickedUI = false;
+let clickID;
 let interactID = 0;
 
 function preload() {
@@ -161,7 +161,7 @@ function drawFrame(frame) {
   image(
     frameSpriteSheet,
     frame.x,
-    frame.y + frame.press,
+    frame.y + (frame.press * frame.size),
     w * frame.size,
     h * frame.size,
     w * frame.state,
@@ -179,7 +179,7 @@ function drawCard(x, y, size, press, card) {
   image(
     cardSpriteSheet,
     x,
-    y + press,
+    y + (press * size),
     w * size,
     h * size,
     w * card.amount + (147 * card.col),
@@ -248,11 +248,12 @@ function drawSelect(bounds, size, press) {
   }
 }
 function mouseReleased() {
-  if (clicked) {
+  if (clickedUI) {
     if (checkHover(hoveredBounds)) {
-      interactManager()
+      print("changing scenes...")
+      manageInteract()
     }
-    clicked = false;
+    clickedUI = false;
   }
 }
 
