@@ -6,13 +6,14 @@ let allFrames = [];
 let currentDeck = [];
 let currentSets = [];
 let obtainedSets = [];
+let obtainedCards = [];
 let obtainedFrames = [];
 
+let win = false;
 let sceneID = 0;
+let margin = 2;
 let cardID = 0;
 let setID = 0;
-let margin = 2;
-let win = false;
 
 let cnv;
 
@@ -22,6 +23,7 @@ class CARD {
     this.amount = amount;
     this.fill = fill;
     this.col = col;
+
     this.cardID = cardID;
   }
 }
@@ -31,17 +33,38 @@ class SET {
     this.first = first;
     this.second = second;
     this.last = last;
+
     this.setID = setID;
   }
 }
 
+class STACK {
+  constructor(f1, f2, f3, y) {
+    this.f1 = f1;
+    this.f2 = f2;
+    this.f3 = f3;
+    this.saved = false;
+
+    this.y = y;
+  }
+}
+
 class FRAME {
-  constructor(x, y, size, press, state, cardID) {  //FRAME CLASS
+  constructor(x, y, size, state, cardID) {  //FRAME CLASS
     this.x = x;
     this.y = y;
-    this.press = press;
+    this.w = 49;
+    this.h = 64;
+
+    this.tx = this.x;
+    this.ty = this.y;
+    this.tw = this.w;
+    this.th = this.h;
+
     this.size = size;
     this.state = state;
+    this.press = 0;
+    
     this.cardID = cardID;
   }
 }
@@ -59,13 +82,15 @@ class UI {
   constructor(x, y, size, col, clickable, sceneID, string, interact) {
     this.x = x;
     this.y = y;
+
     this.size = size;
     this.col = col;
+    this.press = 0;
+
     this.clickable = clickable;
+    this.interact = interact;
     this.sceneID = sceneID;
     this.string = string;
-    this.interact = interact;
-    this.press = 0;
   }
 }
 
@@ -290,7 +315,6 @@ function setupFrames() {
       startX + (w * frameSize + margin * frameSize) * x,
       startY + (h * frameSize + margin * frameSize) * y,
       frameSize,
-      0,
       0,
       currentDeck[i].cardID)
 

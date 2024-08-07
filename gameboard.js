@@ -88,7 +88,8 @@ function draw() {
 
   manageInterface();
   if (sceneID == 10) {
-    manageGame();
+    manageGame()
+    manageSets()
     drawDebug();
   }
 
@@ -162,12 +163,12 @@ function drawFrame(frame) {
     frameSpriteSheet,
     frame.x,
     frame.y + (frame.press * frame.size),
-    w * frame.size,
-    h * frame.size,
-    w * frame.state,
+    frame.w * frame.size,
+    frame.h * frame.size,
+    49 * frame.state,
     0,
-    w,
-    h
+    49,
+    64
   );
 
   textAlign(LEFT, TOP)
@@ -175,17 +176,17 @@ function drawFrame(frame) {
   text(frame.cardID, frame.x + 16, frame.y + 16)
 }
 
-function drawCard(x, y, size, press, card) {
+function drawCard(frame, card) {
   image(
     cardSpriteSheet,
-    x,
-    y + (press * size),
-    w * size,
-    h * size,
-    w * card.amount + (147 * card.col),
-    h * card.shape + (192 * card.fill),
-    w,
-    h
+    frame.x,
+    frame.y + (frame.press * frame.size),
+    frame.w * frame.size,
+    frame.h * frame.size,
+    frame.w * card.amount + (147 * card.col),
+    frame.h * card.shape + (192 * card.fill),
+    frame.w,
+    frame.h
   )
 }
 
@@ -247,33 +248,4 @@ function drawSelect(bounds, size, press) {
     }
   }
 }
-function mouseReleased() {
-  if (clickedUI) {
-    if (checkHover(hoveredBounds)) {
-      print("changing scenes...")
-      manageInteract()
-    }
-    clickedUI = false;
-  }
-}
 
-function getStringCenter(str, size, margin) {
-  let width = 0;
-  for (let i = 0; i < str.length; i++) {
-    let char = str[i];
-    if (charData[char]) {
-      if (i == str.length -1) {
-        margin = 0;
-      }
-      width += charData[char].w * size + margin;
-    }
-  }
-  return width;
-}
-
-function checkHover(bounds) {
-  return (
-    (mouseX > bounds.x && mouseX <= bounds.x + bounds.w) && 
-    (mouseY > bounds.y && mouseY <= bounds.y + bounds.h)
-  ) 
-}

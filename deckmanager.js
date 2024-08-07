@@ -1,16 +1,16 @@
 let animationTimer = 0;
-let selectedSecond = -1;
-let selectedFirst = -1;
-let selectedLast = -1;
+let selectedFrame = [];
+let selectedSecond = 0;
+let selectedFirst = 0;
+let selectedLast = 0;
 let selectedSet = [];
 let cardIndexes = [];
 let setFound = false;
 let result = false;
-let slideX = 0.9;
-let slideY = 0.9;
 let currSetFrame;
 let drawCond;
-let scaleSize = 0.95;
+let stackX = 24;
+let stackY = 112;
 
 function manageGame() {
 
@@ -22,7 +22,7 @@ function manageGame() {
     }
     else {
       drawFrame(currFrame);
-      drawCard(currFrame.x, currFrame.y, currFrame.size, currFrame.press, currentDeck[i]);
+      drawCard(currFrame, currentDeck[i]);
     }
     
     let currBounds = new BOUNDARY(
@@ -62,6 +62,7 @@ function manageGame() {
           }
           if (!setFound){
             selectedSet.push(currFrame.cardID);
+            selectedFrame.push(currFrame); 
             
             if (selectedSet.length == 3) {
   
@@ -73,20 +74,15 @@ function manageGame() {
               let setResult = result ? 4 : 3;
 
               if (result) {
-                obtainedSets.push(selectedFirst);
-                obtainedSets.push(selectedSecond);
-                obtainedSets.push(selectedLast);
+                let newStack = new STACK(selectedFrame[0], selectedFrame[1], selectedFrame[2], 112)
+                obtainedSets.push(newStack);
               }
 
               setFound = true;
 
               for (setCardID of selectedSet) {
-
                 for (let i = 0; i < allFrames.length; i++) {
-
                   if (allFrames[i].cardID == setCardID){
-                    currSetFrame = allFrames[i];
-                    obtainedFrames.push(currSetFrame);
                     allFrames[i].state = setResult;
                   }
                 }
@@ -109,10 +105,6 @@ function manageGame() {
   if (setFound) {
     if (animationTimer < 1500) {
       animationTimer += deltaTime;
-
-      if (result) {
-        obtainAnimation();
-      }
 
     } else {
       if (result) {
@@ -138,6 +130,78 @@ function drawCondition(value, UIID) {
       (UIID.sceneID.includes(sceneID))
     )
   }
+}
+
+function manageSets() {
+  
+
+  for (let i = 0; i < obtainedSets.length; i++) {
+
+    let stackMargin = 7;
+    let setY = obtainedSets[i].y
+    let groupX = stackX
+    let groupY = setY * (i + 1);
+
+    let stackBounds = new BOUNDARY(
+      groupX,
+      groupY,
+      obtainedSets[i].f1.w * 3,
+      obtainedSets[i].f1.h
+    )
+
+    let selectedFirst = deck[obtainedSets[i].f1.cardID - 1];
+    let selectedSecond = deck[obtainedSets[i].f2.cardID - 1];
+    let selectedLast = deck[obtainedSets[i].f3.cardID - 1];
+
+    let f1size = obtainedSets[i].f1.size
+    let f2size = obtainedSets[i].f2.size
+    let f3size = obtainedSets[i].f3.size  
+
+    drawFrame(obtainedSets[i].f1);
+    drawCard(obtainedSets[i].f1, selectedFirst);
+
+    drawFrame(obtainedSets[i].f2);
+    drawCard(obtainedSets[i].f2, selectedSecond);
+
+    drawFrame(obtainedSets[i].f3);
+    drawCard(obtainedSets[i].f3, selectedLast);
+
+    if (!obtainedSets[i].saved) {
+
+      obtainedSets[i].f1.size = lerp(f1size, 1, 0.2)
+      obtainedSets[i].f2.size = lerp(f2size, 1, 0.2)
+      obtainedSets[i].f3.size = lerp(f3size, 1, 0.2)
+
+      obtainedSets[i].f1.x = lerp(obtainedSets[i].f1.x, groupX, 0.2);
+      obtainedSets[i].f2.x = lerp(obtainedSets[i].f2.x, groupX + 49 * f2size / 2, 0.2);
+      obtainedSets[i].f3.x = lerp(obtainedSets[i].f3.x, groupX + 49 * f3size, 0.2);
+
+      obtainedSets[i].f1.y = lerp(obtainedSets[i].f1.y, groupY, 0.2);
+      obtainedSets[i].f2.y = lerp(obtainedSets[i].f2.y, groupY, 0.2);
+      obtainedSets[i].f3.y = lerp(obtainedSets[i].f3.y, groupY, 0.2);
+
+      if (!setFound) {
+        obtainedSets[i].f1.state = 0;
+        obtainedSets[i].f2.state = 0;
+        obtainedSets[i].f3.state = 0;
+
+        obtainedSets[i].saved = true;
+      }
+    }
+    else {
+      if (checkHover(stackBounds)) {
+        obtainedSets[i].f2.x = lerp(obtainedSets[i].f2.x, groupX + 49 * f2size + stackMargin, 0.2)
+        obtainedSets[i].f3.x = lerp(obtainedSets[i].f3.x, groupX + 49 * f3size + (stackMargin * 2) + obtainedSets[i].f2.w, 0.2)
+
+        //rect(stackBounds.x, stackBounds.y, stackBounds.w, stackBounds.h)
+      }
+      else {
+        obtainedSets[i].f2.x = lerp(obtainedSets[i].f2.x, groupX + 49 * f2size / 2, 0.2)
+        obtainedSets[i].f3.x = lerp(obtainedSets[i].f3.x, groupX + 49 * f3size, 0.2)
+      }
+    }
+  }
+
 }
 
 function manageInterface() {
@@ -185,8 +249,8 @@ function manageInterface() {
   
           if (mouseIsPressed) {
 
-            //print("clickID is " + clickID)
             if (clickID != allUI[i].interact) {
+              print("clickID is " + clickID)
               clickID = allUI[i].interact;
             }
 
@@ -224,21 +288,31 @@ function manageInterface() {
   }
 }
 
-function obtainAnimation() {
+function drawObtainedSets() {
 
-  for (let i = 0; i < obtainedSets.length; i++) {
+  for (let i = 0; i < obtainedFrames.length; i++) {
     let currFrame = obtainedFrames[i];
-    let currentCard = obtainedSets[i];
-    currFrame.size *= scaleSize;
-    currFrame.x *= slideX;
-    currFrame.y *= slideY;
-    drawFrame(currFrame);
-    drawCard(
-      currFrame.x, 
-      currFrame.y, 
-      currFrame.size, 
-      currFrame.press, 
-      currentCard);
+    let currentCard = obtainedCards[i];
+    
+    let groupSize = 0.25;
+    let groupX = stackX;
+    let groupY = stackY + i * currFrame.h * groupSize + (stackX * i);
+    //let groupY = stackY + i * 100
+    let groupBounds = new BOUNDARY(groupX, groupY, currFrame.w, currFrame.h * groupSize);
+    let extendAnim = checkHover(groupBounds);
+    let spacingX = extendAnim ? 48 : 24;
+
+    for (let j = 0; j < obtainedCards.length; j++) {
+      let targetX = groupX + j * spacingX;
+      let targetY = groupY;
+      let targetW = currFrame.w * groupSize;
+      let targetH = currFrame.h * groupSize;
+
+      currFrame.animateTo(targetX, targetY, targetW, targetH);
+      
+      drawFrame(currFrame);
+      drawCard(currFrame, currentCard);
+    }
   }
 }
 
@@ -309,10 +383,8 @@ function manageInteraction(clickID) {
   
   if (![0, 15, 16, 17].includes(clickID)) {
     print("up a scene " + clickID);
-    if (clickID == 1) {
-      sceneID = 2;
+    sceneID = clickID;
 
-    }
     print("sceneID updated to " + sceneID);
     return;
   }
@@ -332,4 +404,35 @@ function manageInteraction(clickID) {
       return;
     }
   }
+}
+
+function mouseReleased() {
+  if (clickedUI) {
+    if (checkHover(hoveredBounds)) {
+      print("changing scenes...")
+      manageInteract()
+    }
+    clickedUI = false;
+  }
+}
+
+function getStringCenter(str, size, margin) {
+  let width = 0;
+  for (let i = 0; i < str.length; i++) {
+    let char = str[i];
+    if (charData[char]) {
+      if (i == str.length -1) {
+        margin = 0;
+      }
+      width += charData[char].w * size + margin;
+    }
+  }
+  return width;
+}
+
+function checkHover(bounds) {
+  return (
+    (mouseX > bounds.x && mouseX <= bounds.x + bounds.w) && 
+    (mouseY > bounds.y && mouseY <= bounds.y + bounds.h)
+  ) 
 }
