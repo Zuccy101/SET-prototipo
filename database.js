@@ -38,16 +38,6 @@ class SET {
   }
 }
 
-class STACK {
-  constructor(f1, f2, f3, y) {
-    this.f1 = f1;
-    this.f2 = f2;
-    this.f3 = f3;
-    this.saved = false;
-
-    this.y = y;
-  }
-}
 
 class FRAME {
   constructor(x, y, size, state, cardID) {  //FRAME CLASS
@@ -55,12 +45,7 @@ class FRAME {
     this.y = y;
     this.w = 49;
     this.h = 64;
-
-    this.tx = this.x;
-    this.ty = this.y;
-    this.tw = this.w;
-    this.th = this.h;
-
+    
     this.size = size;
     this.state = state;
     this.press = 0;
@@ -91,6 +76,75 @@ class UI {
     this.interact = interact;
     this.sceneID = sceneID;
     this.string = string;
+  }
+}
+
+class ANIMATION {
+  constructor(targets, startX, startY, startS, endX, endY, endS, duration, type) {
+    this.targets = targets;
+    this.startX = startX;
+    this.startY = startY;
+    this.startS = startS;
+    this.endX = endX;
+    this.endY = endY;
+    this.endS = endS;
+    this.duration = duration;
+    this.startTime = millis();
+    this.type = type;
+  }
+
+  play() {
+    let elapsedTime = millis() - this.startTime;
+    let progress = min(elapsedTime / this.duration, 1);
+    progress = progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+
+    if (this.type === 'move-to-side') {
+
+      this.targets.forEach((frame, index) => {
+        frame.x = lerp(this.startX[index], this.endX[index], progress);
+        frame.y = lerp(this.startY[index], this.endY[index], progress);
+        frame.size = lerp(this.startS, this.endS, progress);
+      });
+    } else if (this.type === 'push-down') {
+      this.targets.forEach((frame, index) => {
+        frame.x = lerp(this.startX, this.endX, progress);
+        frame.y = lerp(this.startY + index * (frame.h + 7), this.endY + index * (frame.h + 7), progress);
+        frame.size = lerp(this.startS, this.endS, progress);
+      });
+    }
+  }
+
+  done() {
+    return millis() - this.startTime >= this.duration;
+  }
+}
+
+class STACK {
+  constructor(f1, f2, f3, playerID) {
+    this.frames = [f1, f2, f3];
+    this.saved = false;
+    this.playerID = playerID;
+    this.animations = [];
+  }
+
+  update() {
+    this.animations = this.animations.filter(anim => {
+      
+      anim.play();
+      return (!anim.done());
+    });
+  }
+  
+  draw() {
+    this.frames.forEach((frame, index) => {
+      drawFrame(frame);
+      drawCard(frame, deck[frame.cardID - 1]);
+    });
+  }
+  
+  animate(animation) {
+    this.animations.push(animation);
+    console.log(this.animations.length)
   }
 }
 

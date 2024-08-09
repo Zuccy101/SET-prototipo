@@ -158,7 +158,7 @@ function drawDebug() {
 }
 
 function drawFrame(frame) {
-  
+
   image(
     frameSpriteSheet,
     frame.x,
