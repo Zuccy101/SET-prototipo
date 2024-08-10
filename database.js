@@ -396,11 +396,13 @@ function setupInterface() {
   
   //   UI ALIGN            x,            y,                    size,  col, clck, scnID,   string,    interact
 
-  let next = new UI(width - wSection * 1,height - hSection * 1,   2,   1,    1,   bL,   'NEXT',         15);
-  let back = new UI(       wSection * 1, height - hSection * 1,   2,   1,    1,   nL,   'BACK',         16);
+  let err = new UI(        width / 2,               height / 2,   8,   4,    1,   -1,    'ERROR' ,      -1);
+
+  let back = new UI(       wSection * 1, height - hSection * 1,   2,   1,    1,   nL,   'BACK',         15);
+  let next = new UI(width - wSection * 1,height - hSection * 1,   2,   1,    1,   bL,   'NEXT',         16);
   let apply = new UI(width - wSection * 4,height- hSection * 1,   2,   1,    1,   aL,   'NEXT',         17);
 
-  allUI.push(back, next, apply);
+  allUI.push(err, back, next, apply);
 
   let title = new UI(      width / 2,    hSection * 1,            8,   0,    0,   0,    '- SET -' ,     0);
   let play = new UI(       width / 2,    height - hSection * 3,   4,   1,    1,   0,    'PLAY',         1);
@@ -415,19 +417,19 @@ function setupInterface() {
 
   allUI.push(solo, multi, settings);
 
-  let theme = new UI(      width / 2,    height - hSection * 4,   4,   1,    1,   2,    'THEME',        0);
-  let music = new UI(      width / 2,    height - hSection * 3,   4,   1,    1,   2,    'MUSIC',        0);
+  //let theme = new UI(      width / 2,    height - hSection * 4,   4,   1,    1,   2,    'THEME',        0);
+  let music = new UI(      width / 2,    height - hSection * 3,   4,   1,    1,   2,    'MUSIC',        7);
   let sound = new UI(      width / 2,    height - hSection * 2,   4,   1,    1,   2,    'SOUND',        0);
   let uisize = new UI(     width / 2,    height - hSection * 1,   4,   1,    1,   2,    'UI SIZE',      0);
 
-  allUI.push(theme, music, sound, uisize);
+  allUI.push(music, sound, uisize);
 
-  let stars = new UI(      width / 2,    height - hSection * 2.5, 4,   1,    1,   3,    'STARS',        12);
-  let collection = new UI( width / 2,    height - hSection * 1.5, 4,   1,    1,   3,    'COLLECTION',   13);
+  let stars = new UI(      width / 2,    height - hSection * 2.5, 4,   1,    1,   3,    'STARS',        8);
+  let collection = new UI( width / 2,    height - hSection * 1.5, 4,   1,    1,   3,    'COLLECTION',   9);
 
   allUI.push(stars, collection);
   
-  let gmsolo = new UI(     width / 2,    height - hSection * 6,   4,   1,    0,   4,    'GAMEMODE',     0);
+  let gmsolo = new UI(     width / 2,    height - hSection * 6,   4,   0,    0,   4,    'GAMEMODE',     0);
   let classic = new UI(    width / 2,    height - hSection * 4,   4,   1,    1,   4,    'CLASSIC',     10);
   let arcade = new UI(     width / 2,    height - hSection * 3,   4,   1,    1,   4,    'ARCADE',      10);
   let srsolo = new UI(     width / 2,    height - hSection * 2,   4,   1,    1,   4,    'SPEEDRUN',    10);

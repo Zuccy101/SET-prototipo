@@ -312,93 +312,90 @@ function manageInterface() {
   }
 }
 
-function manageInteract() {
+function manageInteractions() {
   switch(clickID) {
+    case -1:
+      sceneID = 0;
+      break;
     case 0:
-      return
+      console.log("null interaction? " + sceneID + " " + clickID)
       break;
     case 1:
-      sceneID = 1;
-      break;
     case 2:
-      sceneID = 2;
-      break;
     case 3:
-      sceneID = 3;
-      break;
     case 4:
-      sceneID = 4;
-      break;
     case 5:
-      sceneID = 5;
-      break;
     case 6:
-      sceneID = 6;
-      break;
     case 7:
-      sceneID = 7;
-      break;
     case 8:
-      sceneID = 8;
-      break;
     case 9:
-      sceneID = 9;
-      break;
     case 10:
-      sceneID = 10;
-      break;
-    case 11:
-      sceneID = 11;
-      break;
+    case 11:  
     case 12:
-      sceneID = 12;
-      break;
     case 13:
-      sceneID = 13;
-      break;
     case 14:
-      sceneID = 14;
+      sceneID = clickID;
       break;
+
     case 15:
-      sceneID ++;
-      break;
-    case 16:
-      sceneID --;
-      break;
-    case 17:
-      return;
-      break;
-  }
-}
+      switch(sceneID) {
+        case 1:
+        case 2:
+        case 3:
+          sceneID = 0;
+          break;
 
-function manageInteraction(clickID) {
-  if (clickID == 0) {
-    print("nothing " + clickID);
-    return;
-  }
+        case 4:
+        case 5:
+        case 6:
+          sceneID = 1;
+          break;
+
+        case 7:
+          sceneID = 2;
+          break;
+          
+        case 8:
+        case 9:
+          sceneID = 3;
+          break;
+        
+        default:
+          console.log("invalid backtrace? " + sceneID + " " + clickID)
+          sceneID = -1;
+          break;
+      }
+      case 16:
+        switch(sceneID) {
+          case 1:
+          case 2:
+          case 3:
+            sceneID = 0;
+            break;
   
-  if (![0, 15, 16, 17].includes(clickID)) {
-    print("up a scene " + clickID);
-    sceneID = clickID;
-
-    print("sceneID updated to " + sceneID);
-    return;
-  }
-
-  if (clickID == 15) {
-    print("down a scene " + clickID);
-    if ([1, 2, 3].includes(sceneID)) {
-      sceneID = 0;
-      return;
-    }
-    if ([4, 5, 6].includes(sceneID)) {
-      sceneID = 1;
-      return;
-    }
-    if ([7, 8, 9].includes(sceneID)) {
-      sceneID = 2;
-      return;
-    }
+          case 4:
+          case 5:
+          case 6:
+            sceneID = 1;
+            break;
+  
+          case 7:
+            sceneID = 2;
+            break;
+            
+          case 8:
+          case 9:
+            sceneID = 3;
+            break;
+          
+          default:
+            console.log("invalid forwardtrace? " + sceneID + " " + clickID)
+            break;
+        }
+    default:
+      sceneID = -1;
+      console.log("invalid interaction? " + sceneID + " " + clickID)
+      break;
   }
 }
 
@@ -406,7 +403,7 @@ function mouseReleased() {
   if (clickedUI) {
     if (checkHover(hoveredBounds)) {
       print("changing scenes...")
-      manageInteract()
+      manageInteractions()
     }
     clickedUI = false;
   }
