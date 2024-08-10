@@ -8,6 +8,7 @@ let currentSets = [];
 let obtainedSets = [];
 let obtainedCards = [];
 let obtainedFrames = [];
+let solveTimer = 1000
 
 let win = false;
 let sceneID = 0;
@@ -37,7 +38,6 @@ class SET {
     this.setID = setID;
   }
 }
-
 
 class FRAME {
   constructor(x, y, size, state, cardID) {  //FRAME CLASS
@@ -112,6 +112,13 @@ class ANIMATION {
         frame.size = lerp(this.startS, this.endS, progress);
       });
     }
+    else if (this.type === 'hover' || this.type === 'unhover') {
+      this.targets.forEach((frame, index) => {
+        frame.x = lerp(this.startX[index], this.endX[index], progress);
+        frame.y = lerp(this.startY[index], this.endY[index], progress);
+        frame.size = lerp(this.startS[index], this.endS[index], progress);
+      });
+    }
   }
 
   done() {
@@ -125,6 +132,7 @@ class STACK {
     this.saved = false;
     this.playerID = playerID;
     this.animations = [];
+    this.hover = false;
   }
 
   update() {
@@ -132,6 +140,7 @@ class STACK {
       
       anim.play();
       return (!anim.done());
+      
     });
   }
   

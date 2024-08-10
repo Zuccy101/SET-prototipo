@@ -93,7 +93,7 @@ function manageGame() {
                     endXs, 
                     endYs, 
                     1, 
-                    1500, 'move-to-side'
+                    solveTimer, 'move-to-side'
                   );
                 
                   newStack.animate(getAnim);
@@ -110,7 +110,7 @@ function manageGame() {
                       currStack.frames[j].x, 
                       currStack.frames[j].y + currStack.frames[j].h + 7, 
                       currStack.frames[j].size, 
-                      1500, 'push-down'
+                      solveTimer, 'push-down'
                     );
                     currStack.animate(downAnim);
                   }
@@ -142,7 +142,7 @@ function manageGame() {
   }
 
   if (setFound) {
-    if (animationTimer < 1500) {
+    if (animationTimer < solveTimer) {
       animationTimer += deltaTime;
 
     } else {
@@ -181,15 +181,49 @@ function manageSets() {
     if (!setFound) {
       currStack.frames.forEach((frame, index) => {
         frame.state = 0;
+        
       });
+      currStack.saved = true;
     }
 
     let stackBounds = new BOUNDARY(
       currStack.frames[0].x, currStack.frames[0].y, currStack.frames[0].w * 3, currStack.frames[0].h
     );
+    if (currStack.saved) {
+      if (checkHover(stackBounds)) {
+        if (!currStack.hover) {
+          let hoverAnim = new ANIMATION(
+            currStack.frames,
+            currStack.frames.map(f => f.x),
+            currStack.frames.map(f => f.y),
+            currStack.frames.map(f => f.size),
+            currStack.frames.map((f, i) => f.x + i * 24), // Adjust x positions for hover
+            currStack.frames.map(f => f.y),
+            currStack.frames.map(f => f.size),
+            solveTimer / 2, // Duration of hover animation
+            'hover'
+          );
+          currStack.animate(hoverAnim);
+          currStack.hover = true;
+        }
+      } else {
+        if (currStack.hover) {
 
-    if (checkHover(stackBounds)) {
-      print("extended stack!")
+          let unhoverAnim = new ANIMATION(    // ADD FLAG FOR HOVER TO RETURN OK
+            currStack.frames,
+            currStack.frames.map(f => f.x),
+            currStack.frames.map(f => f.y),
+            currStack.frames.map(f => f.size),
+            currStack.frames.map((f, i) => f.x - i * 24), // Return to original x positions
+            currStack.frames.map(f => f.y),
+            currStack.frames.map(f => f.size),
+            solveTimer / 2, // Duration of unhover animation
+            'unhover'
+          );
+          currStack.animate(unhoverAnim);
+          currStack.hover = false;
+        }
+      }
     }
   }
 }
