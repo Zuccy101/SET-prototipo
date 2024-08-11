@@ -15,6 +15,7 @@ let sceneID = 0;
 let margin = 2;
 let cardID = 0;
 let setID = 0;
+let UIID = 0;
 
 let cnv;
 
@@ -67,6 +68,7 @@ class UI {
   constructor(x, y, size, col, clickable, sceneID, string, interact) {
     this.x = x;
     this.y = y;
+    this.UIID = 0;
 
     this.size = size;
     this.col = col;
@@ -385,7 +387,7 @@ function setupFrames() {
   }
 }
 
-function setupInterface() {
+function setupInterface() {//x,          y,                    size,  col, clck, scnID,   string,    interact
 
   let hSection = height / 8;  
   let wSection = width / 8;
@@ -393,71 +395,75 @@ function setupInterface() {
   let bL = [1, 2, 3, 4, 5, 6, 12, 13, 14]
   let nL = [1, 2, 3, 4, 5, 6, 12, 13]
   let aL = [2, 6]
-  
-  //   UI ALIGN            x,            y,                    size,  col, clck, scnID,   string,    interact
+  let gL = [4, 14]
+  let tL = [4, 14]
+  let lL = [12, 13]
 
-  let err = new UI(        width / 2,               height / 2,   8,   4,    1,   -1,    'ERROR' ,      -1);
+  let err = new UI(        width / 2,               height / 2,   8,   4,    1,   -1,   'ERROR' ,      -1);
 
-  let back = new UI(       wSection * 1, height - hSection * 1,   2,   1,    1,   nL,   'BACK',         15);
-  let next = new UI(width - wSection * 1,height - hSection * 1,   2,   1,    1,   bL,   'NEXT',         16);
-  let apply = new UI(width - wSection * 4,height- hSection * 1,   2,   1,    1,   aL,   'NEXT',         17);
+  let back = new UI(       wSection * 1, height - hSection * 1,   2,   1,    1,   nL,   'BACK',         -2);
+  let next = new UI(width - wSection * 1,height - hSection * 1,   2,   1,    1,   bL,   'NEXT',         -3);
+  let apply = new UI(width -wSection * 4,height - hSection * 1,   2,   1,    1,   aL,   'APPLY',        -4);
 
-  allUI.push(err, back, next, apply);
-
-  let title = new UI(      width / 2,    hSection * 1,            8,   0,    0,   0,    '- SET -' ,     0);
+  let titleSet = new UI(   width / 2,    hSection * 1,            8,   0,    0,   0,    '_ SET _' ,     0);
   let play = new UI(       width / 2,    height - hSection * 3,   4,   1,    1,   0,    'PLAY',         1);
   let config = new UI(     width / 2,    height - hSection * 2,   4,   1,    1,   0,    'CONFIG',       2);
   let trophies = new UI(   width / 2,    height - hSection * 1,   4,   1,    1,   0,    'TROPHIES',     3);
+  //PENDING CHANGES FOR ACHIEVEMENTS
 
-  allUI.push(title, play, config, trophies);
-
-  let solo = new UI(       width / 2,    height - hSection * 3,   4,   1,    1,   1,    'SOLO',         4);
-  let multi = new UI(      width / 2,    height - hSection * 2,   4,   1,    1,   1,    'MULTI',        5);
-  let settings = new UI(   width / 2,    height - hSection * 1,   4,   1,    1,   1,    'SETTINGS',     6);
-
-  allUI.push(solo, multi, settings);
-
-  //let theme = new UI(      width / 2,    height - hSection * 4,   4,   1,    1,   2,    'THEME',        0);
-  let music = new UI(      width / 2,    height - hSection * 3,   4,   1,    1,   2,    'MUSIC',        7);
-  let sound = new UI(      width / 2,    height - hSection * 2,   4,   1,    1,   2,    'SOUND',        0);
-  let uisize = new UI(     width / 2,    height - hSection * 1,   4,   1,    1,   2,    'UI SIZE',      0);
-
-  allUI.push(music, sound, uisize);
-
-  let stars = new UI(      width / 2,    height - hSection * 2.5, 4,   1,    1,   3,    'STARS',        8);
-  let collection = new UI( width / 2,    height - hSection * 1.5, 4,   1,    1,   3,    'COLLECTION',   9);
-
-  allUI.push(stars, collection);
+  let titlePlay = new UI(  width / 2,    hSection * 1,            8,   0,    0,   1,    '_ PLAY _',     0);
+  let solo = new UI(       width / 2,    height - hSection * 2.5, 4,   1,    1,   1,    'SOLO',         4);
+  let multi = new UI(      width / 2,    height - hSection * 1.5, 4,   1,    1,   1,    'MULTI',        5);
   
-  let gmsolo = new UI(     width / 2,    height - hSection * 6,   4,   0,    0,   4,    'GAMEMODE',     0);
-  let classic = new UI(    width / 2,    height - hSection * 4,   4,   1,    1,   4,    'CLASSIC',     10);
-  let arcade = new UI(     width / 2,    height - hSection * 3,   4,   1,    1,   4,    'ARCADE',      10);
-  let srsolo = new UI(     width / 2,    height - hSection * 2,   4,   1,    1,   4,    'SPEEDRUN',    10);
-  let ttsolo = new UI(     width / 2,    height - hSection * 1,   4,   1,    1,   4,    'TIME TRIAL',  10);
-  
-  allUI.push(gmsolo, classic, arcade, srsolo, ttsolo);
-  
-  let gmmult = new UI(     width / 2,    height - hSection * 6,   4,   1,    0,   5,    'GAMEMODE',     0);
-  let party = new UI(      width / 2,    height - hSection * 4,   4,   1,    1,   5,    'PARTY',       10);
-  let versus = new UI(     width / 2,    height - hSection * 3,   4,   1,    1,   5,    'VERSUS',      10);
-  let srmult = new UI(     width / 2,    height - hSection * 2,   4,   1,    1,   5,    'SPEEDRUN',    10);
-  let ttmult = new UI(     width / 2,    height - hSection * 1,   4,   1,    1,   5,    'TIME TRIAL',  10);
-  
-  allUI.push(gmmult, party, versus, srmult, ttmult);
-  
-  let players = new UI(    width / 2,    height - hSection * 2.5, 4,   1,    1,   6,     'PLAYERS',     0);
-  let controls = new UI(   width / 2,    height - hSection * 1.5, 4,   1,    1,   6,     'CONTROLS',    0);
-  
-  allUI.push(players, controls);
+  let titleConfig = new UI(width / 2,    hSection * 1,            8,   0,    0,   2,    '_ CONFIG _' ,  0);
+  let sound = new UI(      width / 2,    height - hSection * 3,   4,   1,    1,   2,    'SOUND',        6);
+  let uisize = new UI(     width / 2,    height - hSection * 2,   4,   1,    1,   2,    'UI SIZE',      7);
+  let controls = new UI(   width / 2,    height - hSection * 1,   4,   1,    1,   2,    'CONTROLS',     8);
 
-  let local;
-  let online;
-  let limits;
-  let sets;
-  let time;
-  let host;
-  let join;
-  let start;
+  let titleTrophies = new UI(width / 2,  hSection * 1,            8,   0,    0,   3,    '_ TROPHIES _', 0);
+  let stars = new UI(      width / 2,    height - hSection * 2.5, 4,   1,    1,   3,    'STARS',        9);
+  let collection = new UI( width / 2,    height - hSection * 1.5, 4,   1,    1,   3,    'COLLECTION',  10);
+  
+  let gamemode = new UI(  width / 2,     hSection * 1,            8,   0,    0,   gL,   '_ GAMEMODE _', 0);
+  let arcade = new UI(    width / 2,     height - hSection * 3,   4,   1,    1,   4,    'ARCADE',      11);
+  let timet = new UI(     width / 2,     height - hSection * 2,   4,   1,    1,   tL,   'TIME TRIAL',  12);
+  let speed = new UI(     width / 2,     height - hSection * 1,   4,   1,    1,   4,    'SPEEDRUN',    13);
+  let party = new UI(      width / 2,    height - hSection * 4,   4,   1,    1,   14,   'PARTY',       16);
+  let versus = new UI(     width / 2,    height - hSection * 3,   4,   1,    1,   14,   'VERSUS',      16);
+  
+  let multiTitle = new UI( width / 2,    hSection * 1,            8,   0,    0,   5,    '_ MULTI _',    0);
+  let local = new UI(      width / 2,    height - hSection * 2.5, 4,   1,    1,   5,    'LOCAL',       14);
+  let online = new UI(     width / 2,    height - hSection * 1.5, 4,   1,    1,   5,    'ONLINE',      15);
+  let host = new UI(       width / 2,    height - hSection * 2.5, 4,   1,    1,   15,   'HOST',        17);
+  let join = new UI(       width / 2,    height - hSection * 1.5, 4,   1,    1,   15,   'JOIN',        18);
+  
+  let limitsTitle = new UI(width / 2,    hSection * 1,            8,   0,    0,   lL,    '_ LIMIT _',   0);
+  let players = new UI(    width / 2,    height - hSection * 3  , 4,   1,    1,   19,   'PLAYERS',     20);
+  let minigame = new UI(   width / 2,    height - hSection * 2  , 4,   1,    1,   11,   'MINIGAME',    20);
+  let settings = new UI(   width / 2,    hSection * 1,            8,   0,    0,   16,   '_ SETTINGS _',20);
+
+  let sets = new UI(       width / 2,    height - hSection * 3,    4,   1,    1,  12,   'SETS',        20);
+  let time = new UI(       width / 2,    height - hSection * 3,    4,   1,    1,  13,   'TIME',        20);
+  let start = new UI(      width / 2,    height - hSection * 1,    4,   1,    1,  20,   'START',       21);
+
+
+  allUI.push(
+    err, back, next, apply, 
+    titleSet, play, config, trophies, 
+    titlePlay, solo, multi, 
+    titleConfig, sound, uisize, controls, 
+    titleTrophies, stars, collection,
+    gamemode, arcade, timet, speed, party, versus,
+    multiTitle, local, online, host, join,
+    limitsTitle, players, minigame, settings,
+    sets, time, start
+  );
+
+  for (let i = 0; i < allUI.length; i++) {
+    allUI[i].UIID = UIID;
+    UIID ++;
+  }
+
   let pause;
   let set;
   let resume;

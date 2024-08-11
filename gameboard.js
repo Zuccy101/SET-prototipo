@@ -87,7 +87,7 @@ function draw() {
   noSmooth();
 
   manageInterface();
-  if (sceneID == 10) {
+  if (sceneID == 21) {
     manageGame()
     manageSets()
     drawDebug();

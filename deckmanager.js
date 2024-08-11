@@ -159,15 +159,17 @@ function manageGame() {
   }
 }
 
-function drawCondition(value, UIID) {
+function drawCondition(value, currUI) {
   if (value) {
+    //print(currUI)
     return(
-      (UIID.sceneID == sceneID)
+      (currUI.sceneID == sceneID)
     )
   }
   else {
+    //print(currUI)
     return(
-      (UIID.sceneID.includes(sceneID))
+      (currUI.sceneID.includes(sceneID))
     )
   }
 }
@@ -229,15 +231,17 @@ function manageSets() {
 }
 
 function manageInterface() {
+  let selectUI = -1;
+  let selectBounds;
 
   for (let i = 0; i < allUI.length; i++) {
 
-    if (![15, 16, 17].includes(allUI[i].interact)) {
-
+    if (![1, 2, 3, 18, 20, 29].includes(allUI[i].UIID)) {
+      //print(allUI[i].UIID)
       drawCond = drawCondition(true, allUI[i])
     }
     else {
-
+      //print(allUI[i].UIID)
       drawCond = drawCondition(false, allUI[i])
     }
 
@@ -268,8 +272,8 @@ function manageInterface() {
         )
   
         if (checkHover(currBounds)) {
-          
-          drawSelect(currBounds, allUI[i].size, allUI[i].press);
+          selectUI = i;
+          selectBounds = currBounds;
   
           if (mouseIsPressed) {
 
@@ -298,7 +302,7 @@ function manageInterface() {
           
         }
         else {
-          
+
           if (clickID != 0 && clickedUI == false) {
             clickID = 0;
   
@@ -309,6 +313,10 @@ function manageInterface() {
         }
       }
     }
+  }
+  if (selectUI != -1) {
+    drawSelect(selectBounds, allUI[selectUI].size, allUI[selectUI].press);
+    selectUI = -1;
   }
 }
 
@@ -334,25 +342,35 @@ function manageInteractions() {
     case 12:
     case 13:
     case 14:
+    case 15:
+    case 16:
+    case 17:
+    case 18:
+    case 19:
+    case 20:
+    case 21:
       sceneID = clickID;
       break;
 
-    case 15:
+    case -2:
       switch(sceneID) {
         case 1:
         case 2:
         case 3:
           sceneID = 0;
+          console.log("back to scene 0")
           break;
 
         case 4:
         case 5:
         case 6:
           sceneID = 1;
+          console.log("back to scene 1")
           break;
 
         case 7:
           sceneID = 2;
+          console.log("back to scene 2")
           break;
           
         case 8:
@@ -365,36 +383,40 @@ function manageInteractions() {
           sceneID = -1;
           break;
       }
-      case 16:
-        switch(sceneID) {
-          case 1:
-          case 2:
-          case 3:
-            sceneID = 0;
-            break;
-  
-          case 4:
-          case 5:
-          case 6:
-            sceneID = 1;
-            break;
-  
-          case 7:
-            sceneID = 2;
-            break;
-            
-          case 8:
-          case 9:
-            sceneID = 3;
-            break;
-          
-          default:
-            console.log("invalid forwardtrace? " + sceneID + " " + clickID)
-            break;
-        }
+      break;
+
+    case -3:
+      switch(sceneID) {
+        case 1:
+        case 2:
+        case 3:
+          sceneID = 0;
+           break;
+ 
+         case 4:
+         case 5:
+         case 6:
+           sceneID = 1;
+           break;
+ 
+         case 7:
+           sceneID = 2;
+           break;
+           
+         case 8:
+         case 9:
+           sceneID = 3;
+           break;
+         
+         default:
+           console.log("invalid forwardtrace? " + sceneID + " " + clickID)
+           break;
+       }
+       break;
+
     default:
-      sceneID = -1;
       console.log("invalid interaction? " + sceneID + " " + clickID)
+      sceneID = -1;
       break;
   }
 }
