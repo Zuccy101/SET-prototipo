@@ -12,6 +12,10 @@ let drawCond;
 let stackX = 24;
 let stackY = 112;
 
+let gmStr = ["PARTY", "VERSUS", "TIME TRIAL"]
+let maxPlayers = 2;
+let gmset = 0;
+
 function manageGame() {
 
   for (let i = 0; i < currentDeck.length; i++) {
@@ -236,7 +240,7 @@ function manageInterface() {
 
   for (let i = 0; i < allUI.length; i++) {
 
-    if (![1, 2, 3, 18, 20, 29].includes(allUI[i].UIID)) {
+    if (![1, 2, 3, 18, 20, 29, 40, 41].includes(allUI[i].UIID)) {
       //print(allUI[i].UIID)
       drawCond = drawCondition(true, allUI[i])
     }
@@ -320,71 +324,8 @@ function manageInterface() {
   }
 }
 
-function manageInteractions() {
-  switch(clickID) {
-    case -1:
-      sceneID = 0;
-      break;
-    case 0:
-      console.log("null interaction? " + sceneID + " " + clickID)
-      break;
-    case 1:
-    case 2:
-    case 3:
-    case 4:
-    case 5:
-    case 6:
-    case 7:
-    case 8:
-    case 9:
-    case 10:
-    case 11:  
-    case 12:
-    case 13:
-    case 14:
-    case 15:
-    case 16:
-    case 17:
-    case 18:
-    case 19:
-    case 20:
-    case 21:
-      sceneID = clickID;
-      break;
-
-    case -2:
-      switch(sceneID) {
-        case 1:
-        case 2:
-        case 3:
-          sceneID = 0;
-          console.log("back to scene 0")
-          break;
-
-        case 4:
-        case 5:
-        case 6:
-          sceneID = 1;
-          console.log("back to scene 1")
-          break;
-
-        case 7:
-          sceneID = 2;
-          console.log("back to scene 2")
-          break;
-          
-        case 8:
-        case 9:
-          sceneID = 3;
-          break;
-        
-        default:
-          console.log("invalid backtrace? " + sceneID + " " + clickID)
-          sceneID = -1;
-          break;
-      }
-      break;
-
+function manageInteractions(clckID) {
+  switch(clckID) {
     case -3:
       switch(sceneID) {
         case 1:
@@ -414,6 +355,125 @@ function manageInteractions() {
        }
        break;
 
+    case -2:
+      switch(sceneID) {
+        case 1:
+        case 2:
+        case 3:
+          sceneID = 0;
+          console.log("back to scene 0")
+          break;
+
+        case 4:
+        case 5:
+        case 6:
+          sceneID = 1;
+          console.log("back to scene 1")
+          break;
+
+        case 7:
+          sceneID = 2;
+          console.log("back to scene 2")
+          break;
+          
+        case 8:
+        case 9:
+          sceneID = 3;
+          break;
+        
+        case 14:
+        case 15:
+          sceneID = 5;
+          break;
+
+        case 18:
+        case 19:
+          sceneID = 15;
+          break;
+
+        case 16:
+        case 17:
+          sceneID = 14;
+          break;
+
+        default:
+          console.log("invalid backtrace? " + sceneID + " " + clickID)
+          sceneID = -1;
+          break;
+      }
+      break;
+
+    case -1:
+      sceneID = 0;
+      break;
+    case 0:
+      console.log("null interaction? " + sceneID + " " + clickID)
+      break;
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+    case 10:
+    case 11:  
+    case 12:
+    case 13:
+    case 14:
+    case 15:
+    case 16:
+    case 17:
+    case 18:
+    case 19:
+    case 20:
+      sceneID = clickID;
+      break;
+
+    case 21:
+      initializeHost();
+      break;
+
+    case 22:
+      if (maxPlayers !== 4) {
+        maxPlayers++;
+      }
+      else {
+        maxPlayers = 2;
+      }
+      allUI[30].string = maxPlayers.toString();
+      break;
+
+    case 23:
+      if (gmset !== 2) {
+        gmset++;
+      }
+      else {
+        gmset = 0;
+      }
+      allUI[38].string = gmStr[gmset];
+      break;
+
+    case 24:
+      navigator.clipboard.writeText(hostPeer.id)
+        .then(() => {
+          console.log('ID copied to clipboard: ' + hostPeer.id);
+        })
+        .catch(err => {
+          console.error('Failed to copy ID: ', err);
+        });
+
+    case 25:
+      initializeRoom();
+      sceneID = 25; //ONLINE ROOM
+      break;
+
+    case 50:
+      sceneID = 50; //ACTUAL GAME START
+      break;
+
     default:
       console.log("invalid interaction? " + sceneID + " " + clickID)
       sceneID = -1;
@@ -425,7 +485,7 @@ function mouseReleased() {
   if (clickedUI) {
     if (checkHover(hoveredBounds)) {
       print("changing scenes...")
-      manageInteractions()
+      manageInteractions(clickID)
     }
     clickedUI = false;
   }
