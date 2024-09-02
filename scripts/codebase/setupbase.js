@@ -106,61 +106,61 @@ function setupInterface() {//x,          y,                    size,  col, clck,
   let next = new UI(width - wSection * 1,height - hSection * 1,   2,   1,    1,   nL,   'NEXT',         -3);
   let apply = new UI(width -wSection * 1,height - hSection * 1,   2,   1,    1,   aL,   'APPLY',        0);
 
-  let titleSet = new UI(   width / 2,    hSection * 1,            8,   0,    0,   0,    '_ SET _' ,     0);
+  let titleSet = new UI(   width / 2,    hSection * 1,            8,   0,    0,   0,    '- SET -' ,     0);
   let play = new UI(       width / 2,    height - hSection * 3,   4,   1,    1,   0,    'PLAY',         1);
   let config = new UI(     width / 2,    height - hSection * 2,   4,   1,    1,   0,    'CONFIG',       2);
   let trophies = new UI(   width / 2,    height - hSection * 1,   4,   1,    1,   0,    'TROPHIES',     3);
   //PENDING CHANGES FOR ACHIEVEMENTS
 
-  let titlePlay = new UI(  width / 2,    hSection * 1,            8,   0,    0,   1,    '_ PLAY _',     0);
+  let titlePlay = new UI(  width / 2,    hSection * 1,            8,   0,    0,   1,    '- PLAY -',     0);
   let solo = new UI(       width / 2,    height - hSection * 1.5, 4,   1,    1,   1,    'SOLO',         4);
   let multi = new UI(      width / 2,    height - hSection * 2.5, 4,   1,    1,   1,    'MULTI',        5);
   
-  let titleConfig = new UI(width / 2,    hSection * 1,            8,   0,    0,   2,    '_ CONFIG _' ,  0);
+  let titleConfig = new UI(width / 2,    hSection * 1,            8,   0,    0,   2,    '- CONFIG -' ,  0);
   let sound = new UI(      width / 2,    height - hSection * 3,   4,   1,    1,   2,    'SOUND',        6);
   let uisize = new UI(     width / 2,    height - hSection * 2,   4,   1,    1,   2,    'UI SIZE',      7);
   let controls = new UI(   width / 2,    height - hSection * 1,   4,   1,    1,   2,    'CONTROLS',     8);
 
-  let titleTrophies = new UI(width / 2,  hSection * 1,            8,   0,    0,   3,    '_ TROPHIES _', 0);
+  let titleTrophies = new UI(width / 2,  hSection * 1,            8,   0,    0,   3,    '- TROPHIES -', 0);
   let stars = new UI(      width / 2,    height - hSection * 2.5, 4,   1,    1,   3,    'STARS',        9);
   let collection = new UI( width / 2,    height - hSection * 1.5, 4,   1,    1,   3,    'COLLECTION',  10);
   
-  let gamemode = new UI(  width / 2,     hSection * 1,            8,   0,    0,   gL,   '_ GAMEMODE _', 0);
+  let gamemode = new UI(  width / 2,     hSection * 1,            8,   0,    0,   gL,   '- GAMEMODE -', 0);
   let arcade = new UI(    width / 2,     height - hSection * 3,   4,   1,    1,   4,    'ARCADE',      11);
   let timet = new UI(     width / 2,     height - hSection * 2,   4,   1,    1,   tL,   'TIME TRIAL',  12);
   let speed = new UI(     width / 2,     height - hSection * 1,   4,   1,    1,   4,    'SPEEDRUN',    13);
   let party = new UI(      width / 2,    height - hSection * 4,   4,   1,    1,   14,   'PARTY',       16);
   let versus = new UI(     width / 2,    height - hSection * 3,   4,   1,    1,   14,   'VERSUS',      16);
   
-  let multiTitle = new UI( width / 2,    hSection * 1,            8,   0,    0,   5,    '_ MULTI _',    0);
+  let multiTitle = new UI( width / 2,    hSection * 1,            8,   0,    0,   5,    '- MULTI -',    0);
   let local = new UI(      width / 2,    height - hSection * 1.5, 4,   1,    1,   5,    'LOCAL',       14);
   let online = new UI(     width / 2,    height - hSection * 2.5, 4,   1,    1,   5,    'ONLINE',      15);
   let host = new UI(       width / 2,    height - hSection * 2.5, 4,   1,    1,   15,   'HOST',        19);
   let join = new UI(       width / 2,    height - hSection * 1.5, 4,   1,    1,   15,   'JOIN',        18);
   
-  let onlineTitle = new UI( width / 2,    hSection * 1,           8,   0,    0,   15,    '_ ONLINE _',  0);
-  let limitsTitle = new UI(width / 2,    hSection * 1,            8,   0,    0,   lL,    '_ LIMIT _',   0);
+  let onlineTitle = new UI( width / 2,    hSection * 1,           8,   0,    0,   15,    '- ONLINE -',  0);
+  let limitsTitle = new UI(width / 2,    hSection * 1,            8,   0,    0,   lL,    '- LIMIT -',   0);
   let minigame = new UI(   width / 2,    height - hSection * 2,   4,   1,    1,   11,   'MINIGAME',    20);
-  let settings = new UI(   width / 2,    hSection * 1,            8,   0,    0,   16,   '_ SETTINGS _',20);
+  let settings = new UI(   width / 2,    hSection * 1,            8,   0,    0,   16,   '- SETTINGS -',20);
   
   let sets = new UI(       width / 2,    height - hSection * 3,   4,   1,    1,   12,   'SETS',        20);
   let time = new UI(       width / 2,    height - hSection * 3,   4,   1,    1,   13,   'TIME',        20);
   let start = new UI(      width / 2,    height - hSection * 1,   4,   1,    1,   20,   'START',       50);
   
-  let hostTitle = new UI(width / 2,      hSection * 1,            8,   0,    0,   19,    '_ HOST _',   0);
+  let hostTitle = new UI(width / 2,      hSection * 1,            8,   0,    0,   19,    '- HOST -',   0);
   let players = new UI(width-wSection*2, height - hSection*5,     4,   1,    1,   19, maxPlayers.toString(), 22);
   let maxp = new UI(    wSection * 2.5,height - hSection * 5,     4,   1,    0,   19, 'MAX PLAYERS',   0);
 
   let gmMulti = new UI(width - wSection * 2, height-hSection*4,   4,   1,    1,   19,  gmStr[gmset],   23);
   let gmString = new UI(wSection * 2,height - hSection *4,        4,   1,    0,   19,  'GAMEMODE',     0);
   let userString = new UI(wSection * 2,height - hSection *3,      4,   1,    0,   uL,  'USERNAME',     0);
-  let userStr = new UI(width - wSection * 2, height-hSection*3,   4,   1,    0,   uL,  username,       0);
+  let userStr = new UI(width - wSection * 2, height-hSection*3,   4,   1,    1,   uL,  "PLAYER 1",     28);
   let room = new UI(      width / 2,    height - hSection * 1,    4,   1,    1,   19, 'CREATE ROOM',   21);
-  let roomTitle = new UI(width / 2,      hSection * 1,            8,   0,    0,   25,   '_ ROOM _',    0);
+  let roomTitle = new UI(width / 2,      hSection * 1,            8,   0,    0,   25,   '- ROOM -',    0);
 
-  let joinTitle = new UI(width / 2,      hSection * 1,            8,   0,    0,   18,  '_ JOIN _',     0);
+  let joinTitle = new UI(width / 2,      hSection * 1,            8,   0,    0,   18,  '- JOIN -',     0);
   let roomID = new UI(wSection * 2,height - hSection *4,          4,   1,    0,   18,  'HOST ID',      0);
-  let roomString = new UI(width - wSection * 2, height-hSection*4,4,   1,    1,   18,  '/////',    27);
+  let roomString = new UI(width - wSection * 2, height-hSection*4,4,   1,    1,   18,  'PASTE ID',    27);
 
   allUI.push(
     err, back, next, apply, 

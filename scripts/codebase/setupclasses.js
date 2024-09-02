@@ -58,6 +58,21 @@ class UI {
     this.interact = interact;
     this.sceneID = sceneID;
     this.string = string;
+
+    this.editing = false;
+  }
+
+  updateString(key) {
+    if (this.string.length < 8) {
+      if (keyCode !== 8) {
+        this.string += key;
+        console.log(this.string)
+      }
+    }
+  }
+  deleteChar() {
+    this.string = this.string.slice(0, -1)
+    console.log(this.string)
   }
 }
 

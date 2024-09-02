@@ -1,4 +1,5 @@
 let drawCond;
+let usernameEdited = false;
 
 function manageInterface() {
   let selectUI = -1;
@@ -103,4 +104,44 @@ function drawUICondition(value, currUI) {
       (currUI.sceneID.includes(sceneID))
     )
   }
+}
+
+function keyTyped() {
+
+  if (currUitoEdit.editing == true) {
+    currUitoEdit.updateString(key.toUpperCase());
+    if (currUitoEdit == allUI[41]) {
+      if (usernameEdited !== true) {
+        usernameEdited = true;
+      }
+      username = allUI[41].string;
+    }
+  }
+}
+
+function keyPressed() {
+  if (keyCode == ENTER) {
+    usedDeck = [];
+    setupDeck();
+    pullCards(0);
+    setupFrames();
+  }
+  if (currUitoEdit.editing == true) {
+    if (keyCode == BACKSPACE) {
+      currUitoEdit.deleteChar();
+    }
+    else if (currUitoEdit == allUI[47]) {
+
+      if (keyIsDown(17) && keyIsDown(86)) {
+      navigator.clipboard
+        .readText()
+        .then((clipText) => (checkClipboard(clipText)))
+      }
+    }
+  }
+}
+
+function checkClipboard(clipText) {
+  clipText = clipText.slice(0, 8)
+  allUI[47].string = clipText
 }

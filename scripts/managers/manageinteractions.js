@@ -1,6 +1,8 @@
 let gmStr = ["PARTY", "VERSUS", "TIME TRIAL"]
 let gmset = 0;
 
+let currUitoEdit
+
 function manageInteractions(clckID) {
   switch(clckID) {
     case -3:
@@ -108,13 +110,17 @@ function manageInteractions(clckID) {
       break;
 
     case 18:
-      username = "LUIGI"
+      if (!usernameEdited) {
+        username = "PLAYER 2"
+      }
       allUI[41].string = username
       sceneID = 18;
       break;
 
     case 19:
-      username = "MARIO"
+      if (!usernameEdited) {
+        username = "PLAYER 1"
+      }
       allUI[41].string = username
       sceneID = 19;
       break;
@@ -165,7 +171,27 @@ function manageInteractions(clckID) {
       break;
 
     case 27:
-      allUI[47].string
+
+      allUI[47].editing = !allUI[47].editing;
+      currUitoEdit = allUI[47]
+      if (allUI[47].editing == true) {
+        allUI[47].string = ""
+      }
+      else {
+        allUI[47].string = "PASTE ID";
+      }
+      break;
+
+    case 28:
+      
+      allUI[41].editing = !allUI[41].editing;
+      currUitoEdit = allUI[41]
+      if (allUI[41].editing == true) {
+        allUI[41].string = ""
+      }
+      else {
+        allUI[41].string = username;
+      }
       break;
 
     case 50:
