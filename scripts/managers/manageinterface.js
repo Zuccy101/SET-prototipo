@@ -109,7 +109,7 @@ function drawUICondition(value, currUI) {
 function keyTyped() {
 
   if (currUitoEdit.editing == true) {
-    currUitoEdit.updateString(key.toUpperCase());
+    currUitoEdit.addChar(key.toUpperCase());
     if (currUitoEdit == allUI[41]) {
       if (usernameEdited !== true) {
         usernameEdited = true;

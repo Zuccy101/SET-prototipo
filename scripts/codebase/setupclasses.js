@@ -62,7 +62,7 @@ class UI {
     this.editing = false;
   }
 
-  updateString(key) {
+  addChar(key) {
     if (this.string.length < 8) {
       if (keyCode !== 8) {
         this.string += key;

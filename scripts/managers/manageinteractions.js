@@ -110,6 +110,8 @@ function manageInteractions(clckID) {
       break;
 
     case 18:
+      allUI[47].editing = false;
+      allUI[41].editing == false;
       if (!usernameEdited) {
         username = "PLAYER 2"
       }
@@ -118,6 +120,7 @@ function manageInteractions(clckID) {
       break;
 
     case 19:
+      allUI[41].editing == false;
       if (!usernameEdited) {
         username = "PLAYER 1"
       }
@@ -198,7 +201,7 @@ function manageInteractions(clckID) {
       sceneID = 50; //ACTUAL GAME START
       break;
 
-    default:
+    default: 
       console.log("invalid interaction? " + sceneID + " " + clickID)
       sceneID = -1;
       break;
