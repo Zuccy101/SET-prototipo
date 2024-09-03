@@ -156,7 +156,7 @@ function manageInteractions(clckID) {
     case 24:
       navigator.clipboard.writeText(hostPeer.id)
         .then(() => {
-          console.log('ID copied to clipboard: ' + hostPeer.id);
+          console.log('ID copied to clipboard');
         })
         .catch(err => {
           console.error('Failed to copy ID: ', err);
