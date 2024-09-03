@@ -59,16 +59,17 @@ function joinRoom(hostId) {
   connection.on('open', function () {
      
     console.log('Connected to host');
-    handleDataReceived();
-    handleDataSent();
+    connection.on('data', function (data) {
+      handleDataReceived(data);
+    });
   });
 }
 
-function handleDataReceived() {
-
+function handleDataReceived(data) {
+  
 }
 
-function handleDataSent() {
+function handleDataSent(type) {
   
 }
 

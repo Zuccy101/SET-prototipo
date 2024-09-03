@@ -109,7 +109,12 @@ function drawUICondition(value, currUI) {
 function keyTyped() {
 
   if (currUitoEdit.editing == true) {
-    currUitoEdit.addChar(key.toUpperCase());
+    if (currUitoEdit.string.length < 9) {
+      currUitoEdit.addChar(key.toUpperCase());
+    }
+    else {
+      return
+    }
     if (currUitoEdit == allUI[41]) {
       if (usernameEdited !== true) {
         usernameEdited = true;
@@ -133,15 +138,45 @@ function keyPressed() {
     else if (currUitoEdit == allUI[47]) {
 
       if (keyIsDown(17) && keyIsDown(86)) {
-      navigator.clipboard
+        navigator.clipboard
         .readText()
-        .then((clipText) => (checkClipboard(clipText)))
+        .then((clipText) => {(
+          checkClipboard(clipText));
+          validateID();
+        }) 
       }
+
+      validateID()
     }
   }
 }
 
+function validateID() {
+  if (isValidString(currUitoEdit.string)) {
+    if (allUI[48].clickable !== 1 && allUI[48].col !== 1)
+    allUI[48].updateProperty("clickable", 1);
+    allUI[48].updateProperty("col", 1)
+  }
+  else {
+    if (allUI[48].clickable !== 0 && allUI[48].col !== 6)
+      allUI[48].updateProperty("clickable", 0);
+      allUI[48].updateProperty("col", 6)
+  }
+}
+
+function isValidString(str) {
+  // Check if the string is exactly 8 characters long
+  const hasNumbers = /\d/.test(str);
+  if (str.length < 7 || hasNumbers) {
+      console.log("invalid id" + str)
+      return false;
+  }
+  console.log("valid id" + str)
+  return true;
+}
+
 function checkClipboard(clipText) {
   clipText = clipText.slice(0, 8)
-  allUI[47].string = clipText
+  allUI[47].string = clipText;
+  validateID()
 }

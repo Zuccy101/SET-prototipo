@@ -154,13 +154,15 @@ function setupInterface() {//x,          y,                    size,  col, clck,
   let gmMulti = new UI(width - wSection * 2, height-hSection*4,   4,   1,    1,   19,  gmStr[gmset],   23);
   let gmString = new UI(wSection * 2,height - hSection *4,        4,   1,    0,   19,  'GAMEMODE',     0);
   let userString = new UI(wSection * 2,height - hSection *3,      4,   1,    0,   uL,  'USERNAME',     0);
-  let userStr = new UI(width - wSection * 2, height-hSection*3,   4,   1,    1,   uL,  "PLAYER 1",     28);
-  let room = new UI(      width / 2,    height - hSection * 1,    4,   1,    1,   19, 'CREATE ROOM',   21);
+  let userStr = new UI(width-wSection*2, height-hSection*3,       4,   1,    1,   uL,  "PLAYER 1",     28);
+  let createRoom = new UI(width - wSection*2.5,height-hSection*1, 4,   1,    1,   19, 'CREATE ROOM',   21);
   let roomTitle = new UI(width / 2,      hSection * 1,            8,   0,    0,   25,   '- ROOM -',    0);
 
   let joinTitle = new UI(width / 2,      hSection * 1,            8,   0,    0,   18,  '- JOIN -',     0);
   let roomID = new UI(wSection * 2,height - hSection *4,          4,   1,    0,   18,  'HOST ID',      0);
-  let roomString = new UI(width - wSection * 2, height-hSection*4,4,   1,    1,   18,  'PASTE ID',    27);
+  let roomString = new UI(width - wSection * 2, height-hSection*4,4,   1,    1,   18,  'PASTE ID',     27);
+  let joinRoom = new UI(width - wSection *2.5,height-hSection *1, 4,   6,    0,   18,  'JOIN ROOM',    29);
+
 
   allUI.push(
     err, back, next, apply, 
@@ -173,8 +175,8 @@ function setupInterface() {//x,          y,                    size,  col, clck,
     limitsTitle, players, hostTitle, minigame, settings,
     sets, time, start, 
     maxp, gmMulti, gmString, userString, userStr, 
-    room, roomTitle, onlineTitle, 
-    joinTitle, roomID, roomString
+    createRoom, roomTitle, onlineTitle, 
+    joinTitle, roomID, roomString, joinRoom
   );
 
   for (let i = 0; i < allUI.length; i++) {
@@ -187,6 +189,6 @@ function setupInterface() {//x,          y,                    size,  col, clck,
   let resume;
   let exit;
 
-  console.log(allUI.length)
+  //console.log(allUI.length)
 
 }

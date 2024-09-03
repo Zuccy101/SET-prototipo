@@ -110,21 +110,21 @@ function manageInteractions(clckID) {
       break;
 
     case 18:
-      allUI[47].editing = false;
-      allUI[41].editing == false;
+      allUI[47].updateProperty("string", "PASTE ID");
+      allUI[47].updateProperty("editing", false);
       if (!usernameEdited) {
         username = "PLAYER 2"
       }
-      allUI[41].string = username
+      allUI[41].updateProperty("string", username);
       sceneID = 18;
       break;
 
     case 19:
-      allUI[41].editing == false;
+      allUI[41].updateProperty("editing", false);
       if (!usernameEdited) {
         username = "PLAYER 1"
       }
-      allUI[41].string = username
+      allUI[41].updateProperty("string", username);
       sceneID = 19;
       break;
       
@@ -140,7 +140,7 @@ function manageInteractions(clckID) {
       else {
         maxPlayers = 2;
       }
-      allUI[30].string = maxPlayers.toString();
+      allUI[30].updateProperty("string", maxPlayers.toString());
       break;
 
     case 23:
@@ -150,7 +150,7 @@ function manageInteractions(clckID) {
       else {
         gmset = 0;
       }
-      allUI[38].string = gmStr[gmset];
+      allUI[38].updateProperty("string", gmStr[gmset]);
       break;
 
     case 24:
@@ -175,27 +175,33 @@ function manageInteractions(clckID) {
 
     case 27:
 
-      allUI[47].editing = !allUI[47].editing;
+      allUI[47].updateProperty("editing", !allUI[47].editing)
       currUitoEdit = allUI[47]
       if (allUI[47].editing == true) {
-        allUI[47].string = ""
+        allUI[47].updateProperty("string", "");
+        validateID()
       }
       else {
-        allUI[47].string = "PASTE ID";
+        allUI[47].updateProperty("string", "PASTE ID");
+        validateID()
       }
       break;
 
     case 28:
       
-      allUI[41].editing = !allUI[41].editing;
+      allUI[41].updateProperty("editing", !allUI[41].editing)
       currUitoEdit = allUI[41]
       if (allUI[41].editing == true) {
-        allUI[41].string = ""
+        allUI[41].updateProperty("string", "");
       }
       else {
-        allUI[41].string = username;
+        allUI[41].updateProperty("string", username);
       }
       break;
+
+    case 29:
+      let hostId = allUI[47].string;
+      joinRoom(hostId);
 
     case 50:
       sceneID = 50; //ACTUAL GAME START

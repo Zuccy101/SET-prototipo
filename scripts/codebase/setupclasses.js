@@ -70,9 +70,35 @@ class UI {
       }
     }
   }
+
   deleteChar() {
     this.string = this.string.slice(0, -1)
     console.log(this.string)
+  }
+
+  updateProperty(prop, value) {
+    switch(prop) {
+      case "col":
+        this.col = value;
+        break;
+
+      case "clickable":
+        this.clickable = value;
+        break;
+
+      case "string":
+        this.string = value;
+        break;
+
+      case "editing":
+        this.editing = value;
+        break;
+
+      default:
+        console.log("Invalid property?: " + prop)
+        console.log("Invalid value?: " + value)
+        break;
+    }
   }
 }
 
