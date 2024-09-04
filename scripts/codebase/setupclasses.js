@@ -188,3 +188,34 @@ class PLAYER {
     this.pts = 0
   }
 }
+
+class PACKAGE {
+  constructor(type) {
+    this.type = type;
+    this.components = {};
+  }
+
+  addComponent(name, component) {
+    this.components[name] = component;
+
+  }
+
+  getComponent(name) {
+    return this.components[name];
+  }
+
+  serialize() {
+    return JSON.stringify({
+      type: this.type,
+      components: this.components
+    });
+  }
+
+  static deserialize(serializedData) {
+    
+    let data = JSON.parse(serializedData);
+    let package = new PACKAGE(data.type);
+    package.components = data.components;
+    return package;
+  }
+}

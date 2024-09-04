@@ -66,10 +66,16 @@ function joinRoom(hostId) {
 }
 
 function handleDataReceived(data) {
+
+  let dataPackage = PACKAGE.serialize(data)
+
+  switch(dataPackage.type) {
+    case "get-username":
+  }
   
 }
 
-function handleDataSent(type) {
+function sendData(type) {
   
 }
 
