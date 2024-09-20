@@ -203,7 +203,16 @@ function manageInteractions(clckID) {
       let hostId = allUI[47].string;
       joinRoom(hostId);
 
+      break;
+
+    case 30:
+      // just for player slots, pass
+      console.log("player joined!")
+      break;
+
     case 50:
+      
+      initializeMatch()
       sceneID = 50; //ACTUAL GAME START
       break;
 

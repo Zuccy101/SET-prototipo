@@ -4,6 +4,7 @@ let username = "MARIO"
 let hostPeer;
 let clientPeer;
 let connection;
+let currGamemode;
 
 function initializeHost() {
 
@@ -15,10 +16,13 @@ function initializeHost() {
 
   hostPeer = new Peer(data.id);
 
-  let newPlayer = new PLAYER(hostPeer, currentPlayers.length + 1, username)
-  currentPlayers.push(newPlayer)
+  //let newPlayer = new PLAYER(hostPeer, currentPlayers.length + 1, username)
+  //currentPlayers.push(newPlayer)
 
   hostPeer.on('open', function (id) {
+
+    currentPlayers.push(new PLAYER(hostPeer, 0, username))
+
     initializeRoom();
     manageInteractions(25)
     
@@ -26,14 +30,28 @@ function initializeHost() {
 }
 
 function initializeRoom() {
-  for (let i = 1; i < maxPlayers + 1; i++) {
-    let plyrSpace = new UI(width / 2, (height - hSection * i) - hSection * 1.5, 4, 6, 0, 25, '_ WAITING TO JOIN _', 0);
+
+  let hostSpace = new UI(width / 2, (height - hSection * 1) - hSection * 1.5, 4, 1, 0, 25, '- ' + currentPlayers[0].name + ' -', 0)
+
+  currGamemode = gmStr[gmset];
+
+  for (let i = 1; i < maxPlayers; i++) {
+    let plyrSpace = new UI(width / 2, (height - hSection * (i + 1)) - hSection * 1.5, 4, 6, 0, 25, '- WAITING TO JOIN -', 0);
+    plyrSpace.used = false;
+    plyrSpace.UIID = UIID;
+    UIID ++;
+
     allUI.push(plyrSpace)
   }
   let copy = new UI(wSection * 2, height - hSection * 1, 4, 1, 1, 25, 'ROOM ID', 24);
-  let start = new UI(width - wSection * 2, height - hSection * 1, 4, 6, 0, 25, 'START', 24);
+  copy.UIID = UIID;
+  UIID ++;
 
-  allUI.push(copy, start)
+  let start = new UI(width - wSection * 2, height - hSection * 1, 4, 6, 0, 25, 'START', 50);
+  start.UIID = UIID;
+  UIID ++;
+
+  allUI.push(copy, start, hostSpace)
 }
 
 function initializeClient() {
@@ -46,8 +64,8 @@ function initializeClient() {
 
   clientPeer = new Peer(data.id)
 
-  let newPlayer = new PLAYER(clientPeer, currentPlayers.length + 1, username)
-  currentPlayers.push(newPlayer)
+  //let newPlayer = new PLAYER(clientPeer, currentPlayers.length + 1, username)
+  //currentPlayers.push(newPlayer)
 
 }
 
@@ -65,17 +83,67 @@ function joinRoom(hostId) {
   });
 }
 
-function handleDataReceived(data) {
+function handleDataReceived(dataPackage) {
 
-  let dataPackage = PACKAGE.serialize(data)
+  let data = PACKAGE.deserialize(dataPackage)
+  console.log(data)
 
-  switch(dataPackage.type) {
-    case "get-username":
+  switch(data.type) {
+
+    case "stateChange":
+
+      sceneID = data.getComponent("scene");
+      break;
+
+    case "enterLobby":
+
+      currGamemode = data.getComponent("gamemode")
+      maxPlayers = data.getComponent("maxp")
+      currentPlayers = data.getComponent("currp")
+    
+      initializeRoom()
+      break;
+
+    case "playerJoin":
+
+      currentPlayers.push(data.getComponent("newp"))
+      let spaceToUpdate = allUI.find(findByUsed);
+      spaceToUpdate.string = data.getComponent("newp")
+      break;
+
+    
   }
-  
+
 }
 
 function sendData(type) {
-  
+
+  let dataPackage;
+  dataPackage = new PACKAGE(type);
+
+  switch(type) {
+    case "stateChange":
+
+      dataPackage.addComponent("scene", 50);
+
+      break;
+    
+    case "enterLobby":
+
+      dataPackage.addComponent("gamemode", currGamemode);
+      dataPackage.addComponent("maxp", maxPlayers);
+      dataPackage.addComponent("currp", currentPlayers);
+
+      break;
+
+    case "playerJoin":
+
+      dataPackage.addComponent("newp", username);
+
+      break;
+  }
+
+  connection.send({ dataPackage: dataPackage });
+
 }
 

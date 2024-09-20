@@ -28,8 +28,12 @@ function setup() {
 
   cnv = createCanvas(width, height);
   cnv.parent("canvasParent")
-
   setupInterface();
+
+}
+
+function initializeMatch() {
+  
   setupCards();
   setupDeck();
   pullCards(0);
@@ -163,7 +167,6 @@ function setupInterface() {//x,          y,                    size,  col, clck,
   let roomString = new UI(width - wSection * 2, height-hSection*4,4,   1,    1,   18,  'PASTE ID',     27);
   let joinRoom = new UI(width - wSection *2.5,height-hSection *1, 4,   6,    0,   18,  'JOIN ROOM',    29);
 
-
   allUI.push(
     err, back, next, apply, 
     titleSet, play, config, trophies, 
@@ -179,6 +182,7 @@ function setupInterface() {//x,          y,                    size,  col, clck,
     joinTitle, roomID, roomString, joinRoom
   );
 
+
   for (let i = 0; i < allUI.length; i++) {
     allUI[i].UIID = UIID;
     UIID ++;
@@ -189,6 +193,14 @@ function setupInterface() {//x,          y,                    size,  col, clck,
   let resume;
   let exit;
 
-  //console.log(allUI.length)
+  console.log(allUI.length)
 
+}
+
+function findByUsed(UI) {
+  return UI.used == false;
+}
+
+function findByInteract(UI) {
+  return UI.interact == 50;
 }

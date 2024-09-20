@@ -60,13 +60,14 @@ class UI {
     this.string = string;
 
     this.editing = false;
+    this.used = true;
   }
 
   addChar(key) {
     if (this.string.length < 8) {
       if (keyCode !== 8) {
         this.string += key;
-        console.log(this.string)
+        //console.log(this.string)
       }
     }
   }
@@ -189,6 +190,7 @@ class PLAYER {
   }
 }
 
+
 class PACKAGE {
   constructor(type) {
     this.type = type;
@@ -214,8 +216,9 @@ class PACKAGE {
   static deserialize(serializedData) {
     
     let data = JSON.parse(serializedData);
-    let package = new PACKAGE(data.type);
-    package.components = data.components;
-    return package;
+    console.log(data.type)
+    let pckg = new PACKAGE(data.type);
+    pckg.components = data.components;
+    return pckg;
   }
 }
