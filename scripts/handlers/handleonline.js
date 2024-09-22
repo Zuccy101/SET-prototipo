@@ -116,7 +116,7 @@ function handleDataReceived(dataPackage) {
 
 }
 
-function sendData(type) {
+function sendData(type) { // LOOK UP IF VALUES NEED TO BE PASSED
 
   let dataPackage;
   dataPackage = new PACKAGE(type);
@@ -124,7 +124,7 @@ function sendData(type) {
   switch(type) {
     case "stateChange":
 
-      dataPackage.addComponent("scene", 50);
+      dataPackage.addComponent("scene", value);
 
       break;
     
