@@ -2,7 +2,7 @@ let maxPlayers = 2;
 let currentPlayers = [];
 let username = "MARIO"
 let hostPeer;
-let clientPeer;
+let peer;
 let connection;
 let currGamemode;
 
@@ -62,7 +62,7 @@ function initializeClient() {
   let data = JSON.parse(http.responseText);
   console.log(data.id);
 
-  clientPeer = new Peer(data.id)
+  peer = new Peer(data.id)
 
   //let newPlayer = new PLAYER(clientPeer, currentPlayers.length + 1, username)
   //currentPlayers.push(newPlayer)
@@ -73,7 +73,7 @@ function joinRoom(hostId) {
 
   initializeClient();
 
-  connection = clientPeer.connect(hostId); // Connect to the host
+  connection = peer.connect(hostId); // Connect to the host
   connection.on('open', function () {
     
     sendData("playerJoinClient");
