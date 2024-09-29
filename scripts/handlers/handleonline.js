@@ -75,7 +75,9 @@ function joinRoom(hostId) {
 
   connection = clientPeer.connect(hostId); // Connect to the host
   connection.on('open', function () {
-     
+    
+    sendData("playerJoinClient");
+
     console.log('Connected to host');
     connection.on('data', function (data) {
       handleDataReceived(data);
