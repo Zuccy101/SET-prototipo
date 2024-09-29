@@ -90,12 +90,12 @@ function handleDataReceived(dataPackage) {
 
   switch(data.type) {
 
-    case "stateChange":
+    case "stateChangeHost":
 
       sceneID = data.getComponent("scene");
       break;
 
-    case "enterLobby":
+    case "enterLobbyHost":
 
       currGamemode = data.getComponent("gamemode")
       maxPlayers = data.getComponent("maxp")
@@ -104,7 +104,7 @@ function handleDataReceived(dataPackage) {
       initializeRoom()
       break;
 
-    case "playerJoin":
+    case "playerJoinClient":
 
       currentPlayers.push(data.getComponent("newp"))
       let spaceToUpdate = allUI.find(findByUsed);
@@ -116,19 +116,19 @@ function handleDataReceived(dataPackage) {
 
 }
 
-function sendData(type) { // LOOK UP IF VALUES NEED TO BE PASSED
+function sendData(type, value = 0) {
 
   let dataPackage;
   dataPackage = new PACKAGE(type);
 
   switch(type) {
-    case "stateChange":
+    case "stateChangeHost":
 
       dataPackage.addComponent("scene", value);
 
       break;
     
-    case "enterLobby":
+    case "enterLobbyHost":
 
       dataPackage.addComponent("gamemode", currGamemode);
       dataPackage.addComponent("maxp", maxPlayers);
@@ -136,7 +136,7 @@ function sendData(type) { // LOOK UP IF VALUES NEED TO BE PASSED
 
       break;
 
-    case "playerJoin":
+    case "playerJoinClient":
 
       dataPackage.addComponent("newp", username);
 

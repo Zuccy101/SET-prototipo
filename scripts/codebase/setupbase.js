@@ -33,12 +33,12 @@ function setup() {
 }
 
 function initializeMatch() {
-  
+
   setupCards();
   setupDeck();
   pullCards(0);
   setupFrames();
-
+  
   console.log("All sets length: " + allSets.length);
  
 }

@@ -140,10 +140,13 @@ function popCards() {
     }
   }
   print(cardIndexes.length + " cards popped!")
-  for (let i = cardIndexes.length - 1; i >= 0; i--) {     // SPLICE THE CORRECT CARDS FROM CURRENT DECK
-    let usedCard = currentDeck.splice(cardIndexes[i], 1)[0];
-    
-    usedDeck.push(usedCard);
+
+  if (currGamemode !== "TIME TRIAL") {
+    for (let i = cardIndexes.length - 1; i >= 0; i--) {     // SPLICE THE CORRECT CARDS FROM CURRENT DECK
+      let usedCard = currentDeck.splice(cardIndexes[i], 1)[0];
+      
+      usedDeck.push(usedCard);
+    }
   }
 
   currentSets = findSets(currentDeck, allSets);
