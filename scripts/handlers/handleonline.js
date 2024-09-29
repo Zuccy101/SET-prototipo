@@ -71,8 +71,6 @@ function initializeClient() {
 
 function joinRoom(hostId) {
 
-  initializeClient();
-
   connection = peer.connect(hostId); // Connect to the host
   connection.on('open', function () {
 

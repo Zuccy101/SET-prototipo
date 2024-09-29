@@ -110,6 +110,9 @@ function manageInteractions(clckID) {
       break;
 
     case 18:
+
+      initializeClient();
+
       allUI[47].updateProperty("string", "PASTE ID");
       allUI[47].updateProperty("editing", false);
       if (!usernameEdited) {
@@ -174,6 +177,7 @@ function manageInteractions(clckID) {
       break;
 
     case 27:
+
 
       allUI[47].updateProperty("editing", !allUI[47].editing)
       currUitoEdit = allUI[47]
