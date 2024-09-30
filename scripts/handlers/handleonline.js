@@ -32,6 +32,9 @@ function initializeHost() {
 
     console.log("Client connected");
 
+    sendData("enterLobbyHost");
+    sendData("stateChangeHost", 50);
+
   });
 }
 
@@ -91,7 +94,7 @@ function joinRoom(hostId) {
 
 function handleDataReceived(dataPackage) {
 
-  console.log(dataPackage)
+  console.log(dataPackage + " - RECEIVED")
   let data = PACKAGE.deserialize(dataPackage)
   console.log(data)
 
@@ -150,7 +153,7 @@ function sendData(type, value = 0) {
       break;
   }
 
-  console.log(dataPackage)
+  console.log(dataPackage  + " - SENT")
   connection.send({ dataPackage: dataPackage });
 
 }
