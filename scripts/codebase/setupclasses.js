@@ -201,6 +201,7 @@ class PACKAGE {
   constructor(type) {
     this.type = type;
     this.components = {};
+    this.self = this;
   }
 
   addComponent(name, component) {
@@ -215,7 +216,8 @@ class PACKAGE {
   serialize() {
     return JSON.stringify({
       type: this.type,
-      components: this.components
+      components: this.components,
+      self: 'Pass'
     });
   }
 
