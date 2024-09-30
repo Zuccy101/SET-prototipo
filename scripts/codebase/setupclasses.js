@@ -157,6 +157,12 @@ class STACK {
     this.playerID = playerID;
     this.animations = [];
     this.hover = false;
+    
+    this.collapsedPositions = this.frames.map((frame, index) => ({ x: frame.x, y: frame.y }));
+    this.expandedPositions = this.frames.map((frame, index) => ({
+      x: frame.x + index * (frame.w - frame.w / 3), // Expand by 2/3 of card width
+      y: frame.y
+    }));
   }
 
   update() {
