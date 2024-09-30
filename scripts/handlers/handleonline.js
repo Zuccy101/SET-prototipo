@@ -153,8 +153,10 @@ function sendData(type, value = 0) {
       break;
   }
 
-  console.log(dataPackage  + " - SENT")
-  connection.send({ dataPackage: dataPackage });
+  console.log(dataPackage.components  + " - SENT")
+  let serializedData = dataPackage.serialize()
+
+  connection.send({ dataPackage: serializedData });
 
 }
 
