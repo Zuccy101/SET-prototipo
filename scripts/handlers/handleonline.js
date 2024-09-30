@@ -92,71 +92,53 @@ function joinRoom(hostId) {
   });
 }
 
-function handleDataReceived(dataPackage) {
+function handleDataReceived(serializedData) {
+  console.log(serializedData + " - RECEIVED");
 
-  console.log(dataPackage + " - RECEIVED")
-  let data = PACKAGE.deserialize(dataPackage)
-  console.log(data)
+  let data = PACKAGE.deserialize(serializedData);
+  console.log(data);
 
   switch(data.type) {
-
     case "stateChangeHost":
-
       sceneID = data.getComponent("scene");
       break;
 
     case "enterLobbyHost":
-
-      currGamemode = data.getComponent("gamemode")
-      maxPlayers = data.getComponent("maxp")
-      currentPlayers = data.getComponent("currp")
-    
-      initializeRoom()
+      currGamemode = data.getComponent("gamemode");
+      maxPlayers = data.getComponent("maxp");
+      currentPlayers = data.getComponent("currp");
+      initializeRoom();
       break;
 
     case "playerJoinClient":
-
-      currentPlayers.push(data.getComponent("newp"))
+      currentPlayers.push(data.getComponent("newp"));
       let spaceToUpdate = allUI.find(findByUsed);
-      spaceToUpdate.string = data.getComponent("newp")
+      spaceToUpdate.string = data.getComponent("newp");
       break;
-
-    
   }
-
 }
 
 function sendData(type, value = 0) {
-
-  let dataPackage;
-  dataPackage = new PACKAGE(type);
+  let dataPackage = new PACKAGE(type);
 
   switch(type) {
     case "stateChangeHost":
-
       dataPackage.addComponent("scene", value);
-
       break;
     
     case "enterLobbyHost":
-
       dataPackage.addComponent("gamemode", currGamemode);
       dataPackage.addComponent("maxp", maxPlayers);
       dataPackage.addComponent("currp", currentPlayers);
-
       break;
 
     case "playerJoinClient":
-
       dataPackage.addComponent("newp", username);
-
       break;
   }
 
-  console.log(dataPackage.components  + " - SENT")
-  let serializedData = dataPackage.serialize()
+  let serializedData = dataPackage.serialize();
+  console.log(serializedData + " - SENT");
 
-  connection.send({ dataPackage: serializedData });
-
+  connection.send(serializedData);
 }
-
