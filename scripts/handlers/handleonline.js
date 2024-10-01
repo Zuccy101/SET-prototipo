@@ -138,9 +138,9 @@ function sendData(type, value = 0) {
   }
 
   let serializedData = dataPackage.serialize();
-    console.log(serializedData + " - SENT");
-  //console.log(serializedData.type + " - SENT");
-  //console.log(serializedData.components + " - SENT");
+  //console.log(serializedData + " - SENT");
+  console.log(serializedData.type + " - SENT");
+  console.log(serializedData.components + " - SENT");
 
   connection.send(serializedData);
 }
