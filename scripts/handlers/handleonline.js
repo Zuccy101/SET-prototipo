@@ -116,10 +116,28 @@ function handleDataReceived(serializedData) {
       let newUsername = data.getComponent("newp")
       let newPlayer = new PLAYER(currentPlayers.length + 1, newUsername)
       currentPlayers.push(newPlayer)
-      
+
       let spaceToUpdate = allUI.find(findByUsed);
       spaceToUpdate.string = data.getComponent("newp");
       spaceToUpdate.col = 1;
+
+      sendData("updateLobbyHost")
+
+      break;
+
+    case "updateLobbyHost":
+
+      currentPlayers = data.getComponent("currp");
+
+      for (let i = 0; i < currentPlayers.length; i++) {
+
+        let newPlayers = data.getComponent("currp");
+
+        let spaceToUpdate = allUI.find(findByUsed);
+        spaceToUpdate.string = newPlayers[i].name;
+        spaceToUpdate.col = 1;
+      }
+
       break;
   }
 }
@@ -140,6 +158,11 @@ function sendData(type, value = 0) {
 
     case "playerJoinClient":
       dataPackage.addComponent("newp", username);
+      break;
+
+    case "updateLobbyHost":
+
+      dataPackage.addComponent("currp", currentPlayers)
       break;
   }
 
