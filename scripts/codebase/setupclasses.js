@@ -200,7 +200,7 @@ class PLAYER {
 class PACKAGE {
   constructor(type) {
     this.type = type;
-    this.components = {};
+    this.components = {self: "I exist"};
   }
 
   addComponent(name, component) {
