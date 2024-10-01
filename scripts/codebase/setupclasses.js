@@ -188,11 +188,10 @@ class STACK {
 }
 
 class PLAYER {
-  constructor(peer, id, name) {
-    this.peer = peer;
+  constructor(id, name) {
     this.id = id,
     this.name = name;
-    this.pts = 0
+    this.pts = 0;
   }
 }
 

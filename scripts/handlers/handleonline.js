@@ -15,13 +15,9 @@ function initializeHost() {
   console.log(data.id);
 
   hostPeer = new Peer(data.id);
-
-  //let newPlayer = new PLAYER(hostPeer, currentPlayers.length + 1, username)
-  //currentPlayers.push(newPlayer)
-
   hostPeer.on('open', function (id) {
 
-    currentPlayers.push(new PLAYER(hostPeer, 0, username))
+    currentPlayers.push(new PLAYER(0, username))
 
     initializeRoom();
     manageInteractions(25)
@@ -81,8 +77,8 @@ function initializeClient() {
 
   peer = new Peer(data.id)
 
-  //let newPlayer = new PLAYER(clientPeer, currentPlayers.length + 1, username)
-  //currentPlayers.push(newPlayer)
+  let newPlayer = new PLAYER(currentPlayers.length + 1, username)
+  currentPlayers.push(newPlayer)
 
 }
 
@@ -137,7 +133,7 @@ function sendData(type, value = 0) {
     case "enterLobbyHost":
       dataPackage.addComponent("gamemode", currGamemode);
       dataPackage.addComponent("maxp", maxPlayers);
-      //dataPackage.addComponent("currp", currentPlayers);
+      dataPackage.addComponent("currp", currentPlayers);
       break;
 
     case "playerJoinClient":
@@ -148,6 +144,6 @@ function sendData(type, value = 0) {
   console.log(dataPackage.type + " - SERIALIZING");
   let serializedData = dataPackage.serialize();
   console.log(serializedData + " - SENT");
-  
+
   connection.send(serializedData);
 }
