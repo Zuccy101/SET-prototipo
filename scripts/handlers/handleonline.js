@@ -32,17 +32,18 @@ function initializeHost() {
 
     console.log("Client connected");
     connection = conn;
-  });
-
-  connection.on('open', function () {
-
-    sendData("enterLobbyHost");
-    sendData("stateChangeHost", 50);
-
-    connection.on('data', function (data) {
-      handleDataReceived(data);
+    
+    connection.on('open', function () {
+  
+      sendData("enterLobbyHost");
+      sendData("stateChangeHost", 50);
+  
+      connection.on('data', function (data) {
+        handleDataReceived(data);
+      });
     });
   });
+
 }
 
 function initializeRoom() {
