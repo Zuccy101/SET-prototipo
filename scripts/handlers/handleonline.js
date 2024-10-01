@@ -31,10 +31,17 @@ function initializeHost() {
   hostPeer.on('connection', function (conn) {
 
     console.log("Client connected");
+    connection = conn;
+  });
+
+  connection.on('open', function () {
 
     sendData("enterLobbyHost");
     sendData("stateChangeHost", 50);
 
+    connection.on('data', function (data) {
+      handleDataReceived(data);
+    });
   });
 }
 
@@ -141,6 +148,6 @@ function sendData(type, value = 0) {
   let serializedData = dataPackage.serialize();
   console.log(serializedData + " - SENT");
 
-  console.log(connection.typeof)
+  console.log(connection)
   //connection.send(serializedData);
 }
