@@ -173,7 +173,7 @@ function sendData(type, value = 0) {
     case "messageSend":
       
       dataPackage.addComponent("user", username)
-      dataPackage.addComponent("message", value.toString())
+      dataPackage.addComponent("message", value)
       break;
   }
 

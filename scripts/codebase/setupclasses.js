@@ -211,7 +211,7 @@ class PACKAGE {
 
   getComponent(name) {
 
-    console.log(this.components[name] + " - GOTTEN")
+    //console.log(this.components[name] + " - GOTTEN")
     return this.components[name];
   }
 
