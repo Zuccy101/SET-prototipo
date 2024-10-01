@@ -32,7 +32,7 @@ function initializeHost() {
 
     console.log("Client connected");
     connection = conn;
-    
+
     connection.on('open', function () {
   
       sendData("enterLobbyHost");
@@ -148,7 +148,6 @@ function sendData(type, value = 0) {
   console.log(dataPackage.type + " - SERIALIZING");
   let serializedData = dataPackage.serialize();
   console.log(serializedData + " - SENT");
-
-  console.log(connection)
-  //connection.send(serializedData);
+  
+  connection.send(serializedData);
 }
