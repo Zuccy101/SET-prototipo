@@ -129,7 +129,7 @@ function sendData(type, value = 0) {
     case "enterLobbyHost":
       dataPackage.addComponent("gamemode", currGamemode);
       dataPackage.addComponent("maxp", maxPlayers);
-      dataPackage.addComponent("currp", currentPlayers);
+      //dataPackage.addComponent("currp", currentPlayers);
       break;
 
     case "playerJoinClient":

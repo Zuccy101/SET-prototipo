@@ -207,7 +207,7 @@ class PACKAGE {
 
     console.log(name + ", " + component + " - ADDING")
     this.components[name] = component;
-    console.log(this.components + " - ADDED")
+    console.log(this.components[name] + " - ADDED")
   }
 
   getComponent(name) {
