@@ -118,6 +118,7 @@ function handleDataReceived(serializedData) {
       currentPlayers.push(data.getComponent("newp"));
       let spaceToUpdate = allUI.find(findByUsed);
       spaceToUpdate.string = data.getComponent("newp");
+      spaceToUpdate.col = 1;
       break;
   }
 }
