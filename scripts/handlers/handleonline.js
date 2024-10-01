@@ -53,7 +53,8 @@ function initializeRoom() {
     plyrSpace.used = false;
     plyrSpace.UIID = UIID;
     UIID ++;
-
+    
+    console.log("player space created")
     allUI.push(plyrSpace)
   }
   let copy = new UI(wSection * 2, height - hSection * 1, 4, 1, 1, 25, 'ROOM ID', 24);
@@ -142,7 +143,7 @@ function sendData(type, value = 0) {
       break;
   }
 
-  console.log(dataPackage.type + " - SERIALIZING");
+  //console.log(dataPackage.type + " - SERIALIZING");
   let serializedData = dataPackage.serialize();
   console.log(serializedData + " - SENT");
 

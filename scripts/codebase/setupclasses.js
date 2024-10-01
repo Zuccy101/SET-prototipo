@@ -204,14 +204,14 @@ class PACKAGE {
 
   addComponent(name, component) {
 
-    console.log(name + ", " + component + " - ADDING")
+    //console.log(name + ", " + component + " - ADDING")
     this.components[name] = component;
     console.log(this.components[name] + " - ADDED")
   }
 
   getComponent(name) {
 
-    console.log(this.components[name] + " - GETTING")
+    console.log(this.components[name] + " - GOTTEN")
     return this.components[name];
   }
 
