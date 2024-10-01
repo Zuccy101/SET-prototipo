@@ -137,10 +137,11 @@ function sendData(type, value = 0) {
       break;
   }
 
+  console.log(dataPackage.type + " - SERIALIZING");
+  console.log(dataPackage.components + " - SERIALIZING");
+
   let serializedData = dataPackage.serialize();
-  //console.log(serializedData + " - SENT");
-  console.log(serializedData.type + " - SENT");
-  console.log(serializedData.components + " - SENT");
+  console.log(serializedData + " - SENT");
 
   connection.send(serializedData);
 }
