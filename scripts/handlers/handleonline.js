@@ -131,10 +131,8 @@ function handleDataReceived(serializedData) {
 
       for (let i = 0; i < currentPlayers.length; i++) {
 
-        let newPlayers = data.getComponent("currp");
-
         let spaceToUpdate = allUI.find(findByUsed);
-        spaceToUpdate.string = newPlayers[i].name;
+        spaceToUpdate.string = currentPlayers[i].name;
         spaceToUpdate.col = 1;
       }
 
