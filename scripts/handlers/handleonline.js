@@ -129,7 +129,7 @@ function sendData(type, value = 0) {
     case "enterLobbyHost":
       dataPackage.addComponent("gamemode", currGamemode);
       dataPackage.addComponent("maxp", maxPlayers);
-      dataPackage.addComponent("currp", currentPlayers);
+      //dataPackage.addComponent("currp", currentPlayers);
       break;
 
     case "playerJoinClient":
@@ -138,7 +138,9 @@ function sendData(type, value = 0) {
   }
 
   let serializedData = dataPackage.serialize();
-  console.log(serializedData + " - SENT");
+    console.log(serializedData + " - SENT");
+  //console.log(serializedData.type + " - SENT");
+  //console.log(serializedData.components + " - SENT");
 
   connection.send(serializedData);
 }
