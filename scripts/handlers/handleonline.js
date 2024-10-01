@@ -32,7 +32,7 @@ function initializeHost() {
 
     console.log("Client connected");
 
-    /*sendData("enterLobbyHost");*/
+    sendData("enterLobbyHost");
     sendData("stateChangeHost", 50);
 
   });
@@ -129,7 +129,7 @@ function sendData(type, value = 0) {
     case "enterLobbyHost":
       dataPackage.addComponent("gamemode", currGamemode);
       dataPackage.addComponent("maxp", maxPlayers);
-      //dataPackage.addComponent("currp", currentPlayers);
+      dataPackage.addComponent("currp", currentPlayers);
       break;
 
     case "playerJoinClient":
@@ -138,10 +138,9 @@ function sendData(type, value = 0) {
   }
 
   console.log(dataPackage.type + " - SERIALIZING");
-  console.log(dataPackage.components + " - SERIALIZING");
-
   let serializedData = dataPackage.serialize();
   console.log(serializedData + " - SENT");
 
-  connection.send(serializedData);
+  console.log(connection.typeof)
+  //connection.send(serializedData);
 }
