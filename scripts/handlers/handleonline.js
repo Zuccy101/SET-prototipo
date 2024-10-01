@@ -101,6 +101,13 @@ function handleDataReceived(serializedData) {
   console.log(data);
 
   switch(data.type) {
+
+    case "messageSend":
+
+      console.log(data.getComponent("user") + ":")
+      console.log('"' + data.getComponent("message") + '"')
+      break;
+
     case "stateChangeHost":
       sceneID = data.getComponent("scene");
       break;
@@ -161,6 +168,12 @@ function sendData(type, value = 0) {
     case "updateLobbyHost":
 
       dataPackage.addComponent("currp", currentPlayers)
+      break;
+
+    case "messageSend":
+      
+      dataPackage.addComponent("user", username)
+      dataPackage.addComponent("message", value.toString())
       break;
   }
 
