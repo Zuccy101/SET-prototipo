@@ -32,7 +32,7 @@ function initializeHost() {
     connection.on('open', function () {
   
       sendData("enterLobbyHost");
-      sendData("stateChangeHost", 50);
+      sendData("stateChangeHost", 25);
   
       connection.on('data', function (data) {
         handleDataReceived(data);
@@ -53,7 +53,7 @@ function initializeRoom() {
     plyrSpace.used = false;
     plyrSpace.UIID = UIID;
     UIID ++;
-    
+
     console.log("player space created")
     allUI.push(plyrSpace)
   }
