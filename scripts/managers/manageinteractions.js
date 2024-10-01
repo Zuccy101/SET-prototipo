@@ -230,7 +230,7 @@ function manageInteractions(clckID) {
 function mouseReleased() {
   if (clickedUI) {
     if (checkHover(hoveredBounds)) {
-      print("changing scenes...")
+      //print("changing scenes...")
       manageInteractions(clickID)
     }
     clickedUI = false;

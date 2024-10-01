@@ -32,7 +32,7 @@ function initializeHost() {
 
     console.log("Client connected");
 
-    sendData("enterLobbyHost");
+    //sendData("enterLobbyHost");
     sendData("stateChangeHost", 50);
 
   });
