@@ -204,10 +204,14 @@ class PACKAGE {
   }
 
   addComponent(name, component) {
+
+    console.log(name + ", " + component)
     this.components[name = component];
   }
 
   getComponent(name) {
+
+    console.log(this.components[name])
     return this.components[name];
   }
 
