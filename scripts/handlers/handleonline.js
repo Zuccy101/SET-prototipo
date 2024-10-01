@@ -78,9 +78,6 @@ function initializeClient() {
 
   peer = new Peer(data.id)
 
-  let newPlayer = new PLAYER(currentPlayers.length + 1, username)
-  currentPlayers.push(newPlayer)
-
 }
 
 function joinRoom(hostId) {
@@ -116,7 +113,10 @@ function handleDataReceived(serializedData) {
       break;
 
     case "playerJoinClient":
-      currentPlayers.push(data.getComponent("newp"));
+      let newUsername = data.getComponent("newp")
+      let newPlayer = new PLAYER(currentPlayers.length + 1, newUsername)
+      currentPlayers.push(newPlayer)
+      
       let spaceToUpdate = allUI.find(findByUsed);
       spaceToUpdate.string = data.getComponent("newp");
       spaceToUpdate.col = 1;
