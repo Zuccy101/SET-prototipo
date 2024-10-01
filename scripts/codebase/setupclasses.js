@@ -204,16 +204,7 @@ class PACKAGE {
   }
 
   addComponent(name, component) {
-    // Ensure the component is not a complex object (e.g., avoid PeerJS objects)
-    if (typeof component === 'object' && component !== null) {
-      if (component.constructor.name === 'Object' || Array.isArray(component)) {
-        this.components[name] = component;
-      } else {
-        console.warn("Avoid adding complex objects: ", component);
-      }
-    } else {
-      this.components[name = component];
-    }
+    this.components[name = component];
   }
 
   getComponent(name) {
